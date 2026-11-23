@@ -1133,6 +1133,7 @@
 
         // =========================================================================
         // এখান থেকেই সরাসরি ডোনার যোগ করুন, ছবি বদলান এবং রক্তদানের সংখ্যা (donations) দিন
+        // মনে রাখবেন: donations: এর পর অবশ্যই একটি সংখ্যা (যেমন 0, 1, 2) লিখতে হবে, ফাঁকা রাখা যাবে না
         // =========================================================================
         const DONORS_LIST = [
             {
@@ -1153,7 +1154,7 @@
                 phone: "01829533525",
                 lastDonationDate: "10-1-2024",
                 photo: "https://i.ibb.co/SXYK8cZ1/sakib-2.jpg",
-                donations: 
+                donations: 0
             },
             {
                 name: "আবদুল মালেক",
@@ -1162,7 +1163,7 @@
                 ward: "৬নং ওয়ার্ড",
                 phone: "01933690065",
                 lastDonationDate: "10-2-2026",
-                photo: " https://i.ibb.co/35WcszYH/malek.jpg",
+                photo: "https://i.ibb.co/35WcszYH/malek.jpg",
                 donations: 1
             },
             {
@@ -1172,8 +1173,8 @@
                 ward: "৬নং ওয়ার্ড",
                 phone: "01881182856",
                 lastDonationDate: "10-1-2024",
-                photo: " https://i.ibb.co/h1nCR0xh/rasel.jpg",
-                donations: 
+                photo: "https://i.ibb.co/h1nCR0xh/rasel.jpg",
+                donations: 0
             }
         ];
 
@@ -1307,7 +1308,8 @@
                 const status = getEligibility(d.lastDonationDate);
                 const formattedDate = formatDateBn(d.lastDonationDate);
                 const letter = getFirstLetter(d.name);
-                const hasPhoto = d.photo && (d.photo.startsWith('http') || d.photo.startsWith('data:image'));
+                const photoUrl = (d.photo || '').trim();
+                const hasPhoto = photoUrl && (photoUrl.startsWith('http') || photoUrl.startsWith('data:image'));
 
                 const count = Math.max(0, parseInt(d.donations, 10) || 0);
                 const starsHtml = count > 0
@@ -1327,7 +1329,7 @@
                                     <div class="avatar-column">
                                         <div class="avatar-wrap">
                                             ${hasPhoto ? `
-                                                <img src="${d.photo}" alt="${d.name}" class="donor-photo"
+                                                <img src="${photoUrl}" alt="${d.name}" class="donor-photo"
                                                      onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                                 <div class="avatar-fallback" style="display:none;">${letter}</div>
                                             ` : `
@@ -1512,7 +1514,7 @@
             setTimeout(() => box.classList.remove('show'), 4000);
         }
 
-        // পেজ ওপেন হওয়ার সাথে সাথেই ডোনার তালিকা দেখাবে
+        // পেজ ওপেন হওয়ার সাথে সাথেই ডোনার তালিকা দেখাবে
         window.onload = function() {
             applyFilters();
         };
