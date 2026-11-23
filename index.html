@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পি. এম. খালী ব্লাড ডোনার সোসাইটি | মানবতার সেবায় রক্তদান</title>
+    <title>পি. এম. খালী ব্লাড ডোনার সোসাইটি | মানবতার সেবায় রক্তদান</title>
     
     <!-- Google Fonts: Hind Siliguri & Noto Sans Bengali -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Self-Contained Rich & Colorful CSS (Works 100% independently without external CSS CDNs) -->
+    <!-- Self-Contained Rich & Colorful CSS -->
     <style>
         :root {
             --crimson-900: #7f1d1d;
@@ -500,7 +500,7 @@
 
         .card-top {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
             margin-bottom: 14px;
@@ -508,9 +508,16 @@
 
         .donor-identity {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 12px;
             min-width: 0;
+        }
+
+        .avatar-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
         }
 
         .avatar-wrap {
@@ -545,12 +552,26 @@
             justify-content: center;
         }
 
+        /* Donation Stars Below Photo */
+        .donation-stars {
+            margin-top: 5px;
+            font-size: 0.85rem;
+            line-height: 1;
+            color: var(--amber-500);
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(245, 158, 11, 0.28);
+            max-width: 74px;
+            word-wrap: break-word;
+        }
+
         .donor-name {
             font-size: 1.15rem;
             font-weight: 700;
             color: var(--slate-900);
             line-height: 1.25;
             word-break: break-word;
+            padding-top: 4px;
         }
 
         .status-pill {
@@ -923,7 +944,6 @@
             <div class="header-top">
                 <div class="brand-box">
                     <div class="blood-drop-glow" aria-hidden="true">
-                        <!-- Inline SVG Glowing Blood Drop -->
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 2.2C12 2.2 5 9.6 5 14.5C5 18.6 8.1 22 12 22C15.9 22 19 18.6 19 14.5C19 9.6 12 2.2 12 2.2ZM10.2 17.8C8.6 17.2 7.8 15.6 8.1 13.8C8.2 13.3 8.7 13 9.2 13.1C9.7 13.2 10 13.7 9.9 14.2C9.7 15.2 10.2 16 11 16.3C11.5 16.5 11.7 17 11.5 17.5C11.3 17.9 10.7 18 10.2 17.8Z"/>
                         </svg>
@@ -931,7 +951,7 @@
                     <div class="brand-title">
                         <h1>পি. এম. খালী ব্লাড ডোনার সোসাইটি</h1>
                         <div class="brand-subtitle">
-                            <span>মানবতার সেবায় স্বেচ্ছায় রক্তদান</span>
+                            <span>মানবতার সেবায় স্বেচ্ছায় রক্তদান</span>
                             <span class="live-count-pill">
                                 <span class="live-dot"></span>
                                 <span id="headerCountBadge">লোড হচ্ছে...</span>
@@ -953,7 +973,7 @@
             </div>
 
             <p class="hero-tagline">
-                কক্সবাজার সদর উপজেলার পি.এম.খালী ইউনিয়নের ১নং থেকে ৯নং ওয়ার্ডের স্বেচ্ছাসেবী রক্তদাতাদের স্থায়ী ডিজিটাল তালিকা। জরুরি মুহূর্তে রক্তের গ্রুপ ও এলাকা নির্বাচন করে সরাসরি কল বা হোয়াটসঅ্যাপ করুন।
+                কক্সবাজার সদর উপজেলার পি.এম.খালী ইউনিয়নের ১নং থেকে ৯নং ওয়ার্ডের স্বেচ্ছাসেবী রক্তদাতাদের স্থায়ী ডিজিটাল তালিকা। জরুরি মুহূর্তে রক্তের গ্রুপ ও এলাকা নির্বাচন করে সরাসরি কল বা হোয়াটসঅ্যাপ করুন।
             </p>
         </div>
     </header>
@@ -980,8 +1000,8 @@
             <div class="stat-card stat-royal">
                 <div class="stat-icon">📍</div>
                 <div>
-                    <div class="stat-value" style="font-size: 1.15rem;">পি.এম.খালী ইউনিয়ন</div>
-                    <div class="stat-label">১নং — ৯নং ওয়ার্ড, কক্সবাজার সদর</div>
+                    <div class="stat-value" style="font-size: 1.15rem;">পি.এম.খালী ইউনিয়ন</div>
+                    <div class="stat-label">১নং — ৯নং ওয়ার্ড, কক্সবাজার সদর</div>
                 </div>
             </div>
         </div>
@@ -1019,18 +1039,18 @@
             <!-- Ward, Status & Search Inputs -->
             <div class="filter-inputs">
                 <div class="input-group">
-                    <label for="wardSelect">ওয়ার্ড নং (১ - ৯)</label>
+                    <label for="wardSelect">ওয়ার্ড নং (১ - ৯)</label>
                     <select id="wardSelect" class="form-control" onchange="applyFilters()">
-                        <option value="ALL">সকল ওয়ার্ড (পি.এম.খালী)</option>
-                        <option value="1">১নং ওয়ার্ড</option>
-                        <option value="2">২নং ওয়ার্ড</option>
-                        <option value="3">৩নং ওয়ার্ড</option>
-                        <option value="4">৪নং ওয়ার্ড</option>
-                        <option value="5">৫নং ওয়ার্ড</option>
-                        <option value="6">৬নং ওয়ার্ড</option>
-                        <option value="7">৭নং ওয়ার্ড</option>
-                        <option value="8">৮নং ওয়ার্ড</option>
-                        <option value="9">৯নং ওয়ার্ড</option>
+                        <option value="ALL">সকল ওয়ার্ড (পি.এম.খালী)</option>
+                        <option value="1">১নং ওয়ার্ড</option>
+                        <option value="2">২নং ওয়ার্ড</option>
+                        <option value="3">৩নং ওয়ার্ড</option>
+                        <option value="4">৪নং ওয়ার্ড</option>
+                        <option value="5">৫নং ওয়ার্ড</option>
+                        <option value="6">৬নং ওয়ার্ড</option>
+                        <option value="7">৭নং ওয়ার্ড</option>
+                        <option value="8">৮নং ওয়ার্ড</option>
+                        <option value="9">৯নং ওয়ার্ড</option>
                     </select>
                 </div>
 
@@ -1068,7 +1088,7 @@
         <!-- Empty State -->
         <div id="emptyBox" class="state-box" style="display: none;">
             <div style="font-size: 2.5rem; margin-bottom: 8px;">🩸</div>
-            <h3>কোনো রক্তদাতা পাওয়া যায়নি</h3>
+            <h3>কোনো রক্তদাতা পাওয়া যায়নি</h3>
             <p style="color: var(--slate-500); font-size: 0.92rem; margin: 6px 0 16px 0;">নির্বাচিত ফিল্টার বা গ্রাম/নামের সাথে মিলে এমন কোনো ডোনার নেই।</p>
             <button type="button" onclick="resetAllFilters()" class="btn-action btn-call" style="padding: 10px 22px;">সব ডোনার দেখুন</button>
         </div>
@@ -1077,8 +1097,8 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            <p><strong>পি. এম. খালী ব্লাড ডোনার সোসাইটি</strong> — পি.এম.খালী ইউনিয়ন, কক্সবাজার সদর</p>
-            <p style="margin-top: 6px; font-size: 0.84rem; color: #94a3b8;">জরুরি প্রয়োজনে রক্তদাতার সাথে সরাসরি কল বা হোয়াটসঅ্যাপে যোগাযোগ করুন। রক্তদানে কোনো আর্থিক লেনদেন নিষিদ্ধ।</p>
+            <p><strong>পি. এম. খালী ব্লাড ডোনার সোসাইটি</strong> — পি.এম.খালী ইউনিয়ন, কক্সবাজার সদর</p>
+            <p style="margin-top: 6px; font-size: 0.84rem; color: #94a3b8;">জরুরি প্রয়োজনে রক্তদাতার সাথে সরাসরি কল বা হোয়াটসঅ্যাপে যোগাযোগ করুন। রক্তদানে কোনো আর্থিক লেনদেন নিষিদ্ধ।</p>
         </div>
     </footer>
 
@@ -1112,24 +1132,24 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="regWard">ওয়ার্ড নং *</label>
+                        <label for="regWard">ওয়ার্ড নং *</label>
                         <select id="regWard" class="form-control" required>
                             <option value="">নির্বাচন করুন</option>
-                            <option value="১নং ওয়ার্ড">১নং ওয়ার্ড</option>
-                            <option value="২নং ওয়ার্ড">২নং ওয়ার্ড</option>
-                            <option value="৩নং ওয়ার্ড">৩নং ওয়ার্ড</option>
-                            <option value="৪নং ওয়ার্ড">৪নং ওয়ার্ড</option>
-                            <option value="৫নং ওয়ার্ড">৫নং ওয়ার্ড</option>
-                            <option value="৬নং ওয়ার্ড">৬নং ওয়ার্ড</option>
-                            <option value="৭নং ওয়ার্ড">৭নং ওয়ার্ড</option>
-                            <option value="৮নং ওয়ার্ড">৮নং ওয়ার্ড</option>
-                            <option value="৯নং ওয়ার্ড">৯নং ওয়ার্ড</option>
+                            <option value="১নং ওয়ার্ড">১নং ওয়ার্ড</option>
+                            <option value="২নং ওয়ার্ড">২নং ওয়ার্ড</option>
+                            <option value="৩নং ওয়ার্ড">৩নং ওয়ার্ড</option>
+                            <option value="৪নং ওয়ার্ড">৪নং ওয়ার্ড</option>
+                            <option value="৫নং ওয়ার্ড">৫নং ওয়ার্ড</option>
+                            <option value="৬নং ওয়ার্ড">৬নং ওয়ার্ড</option>
+                            <option value="৭নং ওয়ার্ড">৭নং ওয়ার্ড</option>
+                            <option value="৮নং ওয়ার্ড">৮নং ওয়ার্ড</option>
+                            <option value="৯নং ওয়ার্ড">৯নং ওয়ার্ড</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label for="regVillage">গ্রাম / পাড়ার নাম *</label>
+                    <label for="regVillage">গ্রাম / পাড়ার নাম *</label>
                     <input type="text" id="regVillage" class="form-control" required placeholder="যেমন: উত্তর পাতলী">
                 </div>
 
@@ -1157,12 +1177,12 @@
                 </div>
 
                 <div class="info-note">
-                    💡 <strong>স্থায়ীভাবে যুক্ত করার নিয়ম:</strong> "তালিকায় যোগ করুন" চাপলে তাৎক্ষণিক প্রিভিউ দেখতে পাবেন, এবং <strong>"WhatsApp-এ পাঠান"</strong> বাটনে ক্লিক করলে আপনার তথ্য সরাসরি অ্যাডমিনের কাছে চলে যাবে যাতে Google Sheet-এ স্থায়ীভাবে সেভ করা যায়।
+                    💡 <strong>স্থায়ীভাবে যুক্ত করার নিয়ম:</strong> "তালিকায় যোগ করুন" চাপলে তাৎক্ষণিক প্রিভিউ দেখতে পাবেন, এবং <strong>"WhatsApp-এ পাঠান"</strong> বাটনে ক্লিক করলে আপনার তথ্য সরাসরি অ্যাডমিনের কাছে চলে যাবে যাতে Google Sheet-এ স্থায়ীভাবে সেভ করা যায়।
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" onclick="closeModal()" class="pill-btn pill-all">বাতিল</button>
-                    <button type="submit" class="btn-action btn-call" style="padding: 10px 16px;">তালিকায় যোগ করুন</button>
+                    <button type="submit" class="btn-action btn-call" style="padding: 10px 16px;">তালিকায় যোগ করুন</button>
                     <button type="button" onclick="sendToAdminWhatsApp()" class="btn-action btn-whatsapp" style="padding: 10px 16px;">💬 WhatsApp-এ পাঠান</button>
                 </div>
             </form>
@@ -1175,28 +1195,28 @@
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTNEn-o9Mo4PuoEP7QAaRFlaa2HSksrvKgW3c54MW9FfWbXJohFRiBbhwi263rXW-hMiqjQtjjO89C/pub?gid=0&single=true&output=csv";
         const ADMIN_PHONE = "8801930912687";
 
-        // Fallback sample data matching user's Google Sheet entry
+        // এখান থেকে প্রতিবার রক্তদানের সংখ্যা (donations) পরিবর্তন করলে ছবির নিচে ততটি স্টার দেখাবে
         const FALLBACK_DONORS = [
             {
                 name: "মো: আল আমিন",
                 bloodGroup: "B+",
                 village: "উত্তর পাতলী",
-                ward: "৬নং ওয়ার্ড",
+                ward: "৬নং ওয়ার্ড",
                 phone: "01930912687",
                 lastDonationDate: "10-1-2024",
-                photo: "https://i.ibb.co/W4wDYQ6q/Gemini-Generated-Image-uzpc6wuzpc6wuzpc.jpg"
+                photo: "https://i.ibb.co/W4wDYQ6q/Gemini-Generated-Image-uzpc6wuzpc6wuzpc.jpg",
+                donations: 1
             },
             {
                 name: "সাকিবুল হাসান",
                 bloodGroup: "B+",
                 village: "কলাতলী",
-                ward: "১নং ওয়ার্ড",
+                ward: "১নং ওয়ার্ড",
                 phone: "01829533525",
                 lastDonationDate: "10-1-2024",
                 photo: "https://i.ibb.co/SXYK8cZ1/sakib-2.jpg",
-		  donations: 2
+                donations: 2
             }
-
         ];
 
         let allDonors = [];
@@ -1216,7 +1236,7 @@
             return String(str).replace(/[০-৯]/g, d => bn.indexOf(d));
         }
 
-        // Extract ward digit (1-9) from strings like "৬নং ওয়ার্ড" or "6"
+        // Extract ward digit (1-9) from strings like "৬নং ওয়ার্ড" or "6"
         function getWardNumber(wardText) {
             const en = toEn(wardText);
             const match = en.match(/[1-9]/);
@@ -1239,14 +1259,12 @@
             const s = toEn(dateStr).trim();
             if (!s) return null;
 
-            // YYYY-MM-DD or YYYY/MM/DD
             let ymd = s.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
             if (ymd) {
                 const d = new Date(parseInt(ymd[1], 10), parseInt(ymd[2], 10) - 1, parseInt(ymd[3], 10));
                 return isNaN(d.getTime()) ? null : d;
             }
 
-            // DD-MM-YYYY or D-M-YYYY
             let dmy = s.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
             if (dmy) {
                 const d = new Date(parseInt(dmy[3], 10), parseInt(dmy[2], 10) - 1, parseInt(dmy[1], 10));
@@ -1262,7 +1280,7 @@
             if (!dateStr || !dateStr.trim()) return "পূর্বে রক্তদান করেননি";
             const d = parseDonationDate(dateStr);
             if (!d) return dateStr;
-            const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+            const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
             return `${toBn(d.getDate())} ${months[d.getMonth()]}, ${toBn(d.getFullYear())}`;
         }
 
@@ -1345,7 +1363,8 @@
                     ward: headers.indexOf('ward'),
                     phone: headers.indexOf('phone'),
                     date: headers.indexOf('last donation date'),
-                    photo: headers.indexOf('photo')
+                    photo: headers.indexOf('photo'),
+                    donations: headers.indexOf('donations')
                 };
 
                 const parsed = [];
@@ -1358,8 +1377,13 @@
                     const phone = cleanPhone(idx.phone > -1 ? (r[idx.phone] || '') : (r[4] || ''));
                     const lastDonationDate = idx.date > -1 ? (r[idx.date] || '') : (r[5] || '');
                     const photo = idx.photo > -1 ? (r[idx.photo] || '') : (r[6] || '');
+                    const rawDonations = idx.donations > -1 ? (r[idx.donations] || '') : (r[7] || '');
 
                     if (!name && !phone) continue;
+
+                    // কোড থেকে সেট করা স্টার সংখ্যা থাকলে সেটিও চেক করবে
+                    const fallbackMatch = FALLBACK_DONORS.find(f => cleanPhone(f.phone) === phone || f.name.trim() === name.trim());
+                    const donationCount = parseInt(toEn(rawDonations), 10) || (fallbackMatch ? (fallbackMatch.donations || 0) : 0);
 
                     parsed.push({
                         name: name || "নাম উল্লেখ নেই",
@@ -1368,7 +1392,8 @@
                         ward: ward || "উল্লেখ নেই",
                         phone: phone,
                         lastDonationDate: lastDonationDate,
-                        photo: photo
+                        photo: photo,
+                        donations: donationCount
                     });
                 }
 
@@ -1377,7 +1402,7 @@
                 syncBadge.innerHTML = `<span>●</span><span>Google Sheets লাইভ সংযুক্ত</span>`;
 
                 if (isManualRefresh) {
-                    showToast(`সফলভাবে ${toBn(allDonors.length)} জন রক্তদাতার তথ্য আপডেট হয়েছে!`);
+                    showToast(`সফলভাবে ${toBn(allDonors.length)} জন রক্তদাতার তথ্য আপডেট হয়েছে!`);
                 }
             } catch (err) {
                 console.warn("Using fallback donor data:", err);
@@ -1388,7 +1413,7 @@
                 syncBadge.innerHTML = `<span>●</span><span>ব্যাকআপ ডাটা চালু (রিফ্রেশ করুন)</span>`;
 
                 if (isManualRefresh) {
-                    showToast("লাইভ সংযোগ পাওয়া যায়নি, ব্যাকআপ তালিকা দেখানো হচ্ছে।");
+                    showToast("লাইভ সংযোগ পাওয়া যায়নি, ব্যাকআপ তালিকা দেখানো হচ্ছে।");
                 }
             } finally {
                 loadingBox.style.display = 'none';
@@ -1444,7 +1469,7 @@
         function renderCards(list) {
             const grid = document.getElementById('donorsGrid');
             const emptyBox = document.getElementById('emptyBox');
-            document.getElementById('resultsCount').textContent = `মোট ${toBn(list.length)} জন পাওয়া গেছে`;
+            document.getElementById('resultsCount').textContent = `মোট ${toBn(list.length)} জন পাওয়া গেছে`;
 
             if (list.length === 0) {
                 grid.innerHTML = '';
@@ -1459,23 +1484,32 @@
                 const letter = getFirstLetter(d.name);
                 const hasPhoto = d.photo && (d.photo.startsWith('http') || d.photo.startsWith('data:image'));
 
+                // রক্তদানের সংখ্যা অনুযায়ী স্টার তৈরি
+                const count = Math.max(0, parseInt(d.donations, 10) || 0);
+                const starsHtml = count > 0
+                    ? `<div class="donation-stars" title="মোট ${toBn(count)} বার রক্তদান করেছেন">${'★'.repeat(count)}</div>`
+                    : '';
+
                 const digits = d.phone.replace(/\D/g, '');
                 const waNum = digits.startsWith('88') ? digits : `88${digits}`;
-                const waText = encodeURIComponent(`আসসালামু আলাইকুম ${d.name}, পি. এম. খালী ব্লাড ডোনার সোসাইটি ওয়েবসাইট থেকে আপনার নম্বর পেয়েছি। জরুরি ভিত্তিতে ${d.bloodGroup} গ্রুপের রক্ত প্রয়োজন। আপনি কি রক্তদানে সাহায্য করতে পারবেন?`);
+                const waText = encodeURIComponent(`আসসালামু আলাইকুম ${d.name}, পি. এম. খালী ব্লাড ডোনার সোসাইটি ওয়েবসাইট থেকে আপনার নম্বর পেয়েছি। জরুরি ভিত্তিতে ${d.bloodGroup} গ্রুপের রক্ত প্রয়োজন। আপনি কি রক্তদানে সাহায্য করতে পারবেন?`);
 
                 return `
                     <article class="donor-card ${status.ready ? 'ready-card' : 'waiting-card'}">
                         <div>
                             <div class="card-top">
                                 <div class="donor-identity">
-                                    <div class="avatar-wrap">
-                                        ${hasPhoto ? `
-                                            <img src="${d.photo}" alt="${d.name}" class="donor-photo"
-                                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                                            <div class="avatar-fallback" style="display:none;">${letter}</div>
-                                        ` : `
-                                            <div class="avatar-fallback">${letter}</div>
-                                        `}
+                                    <div class="avatar-column">
+                                        <div class="avatar-wrap">
+                                            ${hasPhoto ? `
+                                                <img src="${d.photo}" alt="${d.name}" class="donor-photo"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                <div class="avatar-fallback" style="display:none;">${letter}</div>
+                                            ` : `
+                                                <div class="avatar-fallback">${letter}</div>
+                                            `}
+                                        </div>
+                                        ${starsHtml}
                                     </div>
                                     <div>
                                         <h3 class="donor-name">${d.name}</h3>
@@ -1578,7 +1612,7 @@
                     previewImg.src = uploadedPhotoDataUrl;
                     previewImg.style.display = 'block';
                     document.getElementById('uploadIconWrap').style.display = 'none';
-                    document.getElementById('uploadTitleText').textContent = '✅ ছবি নির্বাচন করা হয়েছে (পরিবর্তন করতে ক্লিক করুন)';
+                    document.getElementById('uploadTitleText').textContent = '✅ ছবি নির্বাচন করা হয়েছে (পরিবর্তন করতে ক্লিক করুন)';
                     document.getElementById('uploadSubText').textContent = file.name;
                 };
                 img.src = e.target.result;
@@ -1605,7 +1639,8 @@
                 village: document.getElementById('regVillage').value.trim(),
                 phone: cleanPhone(document.getElementById('regPhone').value.trim()),
                 lastDonationDate: document.getElementById('regDate').value || "",
-                photo: uploadedPhotoDataUrl
+                photo: uploadedPhotoDataUrl,
+                donations: 0
             };
         }
 
@@ -1617,7 +1652,7 @@
             resetPhotoUploadBox();
             closeModal();
             resetAllFilters();
-            showToast(`ধন্যবাদ ${donor.name}! ছবিসহ তালিকায় যুক্ত করা হয়েছে।`);
+            showToast(`ধন্যবাদ ${donor.name}! ছবিসহ তালিকায় যুক্ত করা হয়েছে।`);
         }
 
         function sendToAdminWhatsApp() {
@@ -1634,17 +1669,17 @@
             closeModal();
             resetAllFilters();
 
-            const msg = `আসসালামু আলাইকুম, আমি "পি. এম. খালী ব্লাড ডোনার সোসাইটি" ওয়েবসাইটে স্থায়ী রক্তদাতা হিসেবে যুক্ত হতে চাই:\n\n` +
+            const msg = `আসসালামু আলাইকুম, আমি "পি. এম. খালী ব্লাড ডোনার সোসাইটি" ওয়েবসাইটে স্থায়ী রক্তদাতা হিসেবে যুক্ত হতে চাই:\n\n` +
                 `নাম: ${d.name}\n` +
                 `রক্তের গ্রুপ: ${d.bloodGroup}\n` +
                 `গ্রাম: ${d.village}\n` +
-                `ওয়ার্ড: ${d.ward}\n` +
+                `ওয়ার্ড: ${d.ward}\n` +
                 `মোবাইল: ${d.phone}\n` +
                 `সর্বশেষ রক্তদান: ${d.lastDonationDate || 'পূর্বে রক্তদান করিনি'}\n` +
-                `প্রোফাইল ছবি: ${hasAttachedPhoto ? 'ছবি নির্বাচন করা হয়েছে (চ্যাটে ছবিটি পাঠিয়ে দিচ্ছি)' : 'নেই'}`;
+                `প্রোফাইল ছবি: ${hasAttachedPhoto ? 'ছবি নির্বাচন করা হয়েছে (চ্যাটে ছবিটি পাঠিয়ে দিচ্ছি)' : 'নেই'}`;
 
             window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
-            showToast("অ্যাডমিনের WhatsApp ওপেন করা হয়েছে!");
+            showToast("অ্যাডমিনের WhatsApp ওপেন করা হয়েছে!");
         }
 
         function showToast(msg) {
