@@ -10,7 +10,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Self-Contained Rich & Colorful CSS -->
     <style>
         :root {
             --crimson-900: #7f1d1d;
@@ -28,8 +27,6 @@
             --whatsapp-green: #25D366;
             --whatsapp-dark: #128C7E;
             --royal-600: #2563eb;
-            --royal-100: #dbeafe;
-            --royal-800: #1e40af;
             --slate-900: #0f172a;
             --slate-800: #1e293b;
             --slate-600: #475569;
@@ -188,27 +185,6 @@
             gap: 10px;
         }
 
-        .btn-refresh-top {
-            background: rgba(255, 255, 255, 0.16);
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            padding: 10px 16px;
-            border-radius: 14px;
-            font-family: inherit;
-            font-size: 0.92rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            transition: all 0.2s ease;
-        }
-
-        .btn-refresh-top:hover {
-            background: rgba(255, 255, 255, 0.28);
-            transform: translateY(-1px);
-        }
-
         .btn-register-hero {
             background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
             color: var(--crimson-700);
@@ -241,7 +217,7 @@
             z-index: 2;
         }
 
-        /* Quick Stats Bar (Overlapping Hero) */
+        /* Quick Stats Bar */
         .stats-wrapper {
             margin-top: -38px;
             position: relative;
@@ -356,12 +332,6 @@
             color: var(--emerald-800);
         }
 
-        .sync-badge.offline {
-            background: var(--amber-100);
-            color: var(--amber-800);
-        }
-
-        /* Colorful Blood Group Quick Pills */
         .pills-label {
             font-size: 0.85rem;
             font-weight: 600;
@@ -403,7 +373,6 @@
             box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
-        /* Filter Inputs Grid */
         .filter-inputs {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -555,13 +524,13 @@
         /* Donation Stars Below Photo */
         .donation-stars {
             margin-top: 5px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             line-height: 1;
             color: var(--amber-500);
             letter-spacing: 1px;
             text-align: center;
-            text-shadow: 0 1px 2px rgba(245, 158, 11, 0.28);
-            max-width: 74px;
+            text-shadow: 0 1px 2px rgba(245, 158, 11, 0.3);
+            max-width: 78px;
             word-wrap: break-word;
         }
 
@@ -707,7 +676,7 @@
             transform: translateY(-1px);
         }
 
-        /* Empty & Loading States */
+        /* Empty State */
         .state-box {
             background: var(--white);
             border-radius: 24px;
@@ -716,20 +685,6 @@
             box-shadow: var(--shadow-sm);
             border: 1px solid var(--slate-200);
             margin-bottom: 40px;
-        }
-
-        .spinner {
-            width: 44px;
-            height: 44px;
-            border: 4px solid #fee2e2;
-            border-top-color: var(--crimson-600);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 14px auto;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
         }
 
         /* Footer */
@@ -919,7 +874,6 @@
             color: var(--slate-500);
         }
 
-        /* Responsive Breakpoints */
         @media (max-width: 960px) {
             .donors-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -935,10 +889,9 @@
 </head>
 <body>
 
-    <!-- Toast Notification -->
     <div id="toastBox" class="toast"></div>
 
-    <!-- Vibrant Gradient Header Banner -->
+    <!-- Header Banner -->
     <header class="hero-header">
         <div class="container">
             <div class="header-top">
@@ -954,17 +907,13 @@
                             <span>মানবতার সেবায় স্বেচ্ছায় রক্তদান</span>
                             <span class="live-count-pill">
                                 <span class="live-dot"></span>
-                                <span id="headerCountBadge">লোড হচ্ছে...</span>
+                                <span id="headerCountBadge">০ জন ডোনার</span>
                             </span>
                         </div>
                     </div>
                 </div>
 
                 <div class="header-actions">
-                    <button type="button" onclick="loadDonorsFromSheet(true)" class="btn-refresh-top" title="Google Sheet থেকে সর্বশেষ তথ্য আনুন">
-                        <span>🔄</span>
-                        <span>রিফ্রেশ</span>
-                    </button>
                     <button type="button" onclick="openModal()" class="btn-register-hero">
                         <span>➕</span>
                         <span>নতুন রক্তদাতা হোন</span>
@@ -978,7 +927,7 @@
         </div>
     </header>
 
-    <!-- Colorful Pastel-Tinted Quick Stats Bar -->
+    <!-- Stats Bar -->
     <section class="container stats-wrapper">
         <div class="stats-grid">
             <div class="stat-card stat-emerald">
@@ -1009,20 +958,18 @@
 
     <!-- Main Content -->
     <main class="container">
-        <!-- Elevated Search & Filter Card -->
         <section class="filter-card">
             <div class="filter-header">
                 <div class="filter-title">
                     <span>🔍</span>
                     <span>রক্তদাতা খুঁজুন ও ফিল্টার করুন</span>
                 </div>
-                <div id="syncBadge" class="sync-badge">
+                <div class="sync-badge">
                     <span>●</span>
-                    <span>Google Sheets লাইভ সংযুক্ত</span>
+                    <span>যাচাইকৃত ডোনার তালিকা</span>
                 </div>
             </div>
 
-            <!-- Colorful Blood Group Quick Pills -->
             <span class="pills-label">রক্তের গ্রুপ নির্বাচন করুন:</span>
             <div class="blood-pills" id="bloodPills">
                 <button type="button" class="pill-btn pill-all active" data-group="ALL" onclick="selectGroup('ALL')">সকল গ্রুপ</button>
@@ -1036,7 +983,6 @@
                 <button type="button" class="pill-btn pill-neg" data-group="AB-" onclick="selectGroup('AB-')">AB-</button>
             </div>
 
-            <!-- Ward, Status & Search Inputs -->
             <div class="filter-inputs">
                 <div class="input-group">
                     <label for="wardSelect">ওয়ার্ড নং (১ - ৯)</label>
@@ -1069,17 +1015,9 @@
             </div>
         </section>
 
-        <!-- Results Header -->
         <div class="results-header">
             <h2>তালিকাভুক্ত রক্তদাতাগণ</h2>
             <span id="resultsCount" class="results-count">লোড হচ্ছে...</span>
-        </div>
-
-        <!-- Loading Box -->
-        <div id="loadingBox" class="state-box">
-            <div class="spinner"></div>
-            <h3>Google Sheet থেকে রক্তদাতাদের তথ্য লোড হচ্ছে...</h3>
-            <p style="color: var(--slate-500); font-size: 0.9rem; margin-top: 4px;">অনুগ্রহ করে অপেক্ষা করুন</p>
         </div>
 
         <!-- Donor Cards Grid -->
@@ -1177,7 +1115,7 @@
                 </div>
 
                 <div class="info-note">
-                    💡 <strong>স্থায়ীভাবে যুক্ত করার নিয়ম:</strong> "তালিকায় যোগ করুন" চাপলে তাৎক্ষণিক প্রিভিউ দেখতে পাবেন, এবং <strong>"WhatsApp-এ পাঠান"</strong> বাটনে ক্লিক করলে আপনার তথ্য সরাসরি অ্যাডমিনের কাছে চলে যাবে যাতে Google Sheet-এ স্থায়ীভাবে সেভ করা যায়।
+                    💡 <strong>স্থায়ীভাবে যুক্ত করার নিয়ম:</strong> <strong>"WhatsApp-এ পাঠান"</strong> বাটনে ক্লিক করলে আপনার তথ্য সরাসরি অ্যাডমিনের কাছে চলে যাবে এবং ওয়েবসাইটে স্থায়ীভাবে যুক্ত করা হবে।
                 </div>
 
                 <div class="modal-footer">
@@ -1191,12 +1129,12 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Live Published Google Sheets CSV URL
-        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTTNEn-o9Mo4PuoEP7QAaRFlaa2HSksrvKgW3c54MW9FfWbXJohFRiBbhwi263rXW-hMiqjQtjjO89C/pub?gid=0&single=true&output=csv";
         const ADMIN_PHONE = "8801930912687";
 
-        // এখান থেকে প্রতিবার রক্তদানের সংখ্যা (donations) পরিবর্তন করলে ছবির নিচে ততটি স্টার দেখাবে
-        const FALLBACK_DONORS = [
+        // =========================================================================
+        // এখান থেকেই সরাসরি ডোনার যোগ করুন, ছবি বদলান এবং রক্তদানের সংখ্যা (donations) দিন
+        // =========================================================================
+        const DONORS_LIST = [
             {
                 name: "মো: আল আমিন",
                 bloodGroup: "B+",
@@ -1215,35 +1153,31 @@
                 phone: "01829533525",
                 lastDonationDate: "10-1-2024",
                 photo: "https://i.ibb.co/SXYK8cZ1/sakib-2.jpg",
-                donations: 
+                donations: 3
             }
         ];
 
-        let allDonors = [];
+        let allDonors = [...DONORS_LIST];
         let selectedBloodGroup = "ALL";
         let uploadedPhotoDataUrl = "";
 
-        // Convert English numbers to Bengali digits
         function toBn(num) {
             const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
             return String(num).replace(/\d/g, d => bn[d]);
         }
 
-        // Convert Bengali digits to English digits
         function toEn(str) {
             if (!str) return "";
             const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
             return String(str).replace(/[০-৯]/g, d => bn.indexOf(d));
         }
 
-        // Extract ward digit (1-9) from strings like "৬নং ওয়ার্ড" or "6"
         function getWardNumber(wardText) {
             const en = toEn(wardText);
             const match = en.match(/[1-9]/);
             return match ? match[0] : "";
         }
 
-        // Normalize Bangladesh phone number (preserve leading 0)
         function cleanPhone(raw) {
             if (!raw) return "";
             let digits = toEn(raw).replace(/[^\d+]/g, '');
@@ -1253,7 +1187,6 @@
             return digits;
         }
 
-        // Parse DD-MM-YYYY (e.g., 10-1-2024) and YYYY-MM-DD reliably
         function parseDonationDate(dateStr) {
             if (!dateStr) return null;
             const s = toEn(dateStr).trim();
@@ -1275,7 +1208,6 @@
             return isNaN(fallback.getTime()) ? null : fallback;
         }
 
-        // Format date into readable Bengali string
         function formatDateBn(dateStr) {
             if (!dateStr || !dateStr.trim()) return "পূর্বে রক্তদান করেননি";
             const d = parseDonationDate(dateStr);
@@ -1284,7 +1216,6 @@
             return `${toBn(d.getDate())} ${months[d.getMonth()]}, ${toBn(d.getFullYear())}`;
         }
 
-        // Calculate 90-day eligibility against current date
         function getEligibility(dateStr) {
             const lastDate = parseDonationDate(dateStr);
             if (!lastDate) return { ready: true, daysLeft: 0 };
@@ -1300,135 +1231,12 @@
             return { ready: false, daysLeft: Math.max(1, 90 - diffDays) };
         }
 
-        // Parse CSV rows safely
-        function parseCSVText(text) {
-            const rows = [];
-            let row = [];
-            let field = '';
-            let inQuotes = false;
-
-            for (let i = 0; i < text.length; i++) {
-                const ch = text[i];
-                const next = text[i + 1];
-
-                if (ch === '"') {
-                    if (inQuotes && next === '"') {
-                        field += '"';
-                        i++;
-                    } else {
-                        inQuotes = !inQuotes;
-                    }
-                } else if (ch === ',' && !inQuotes) {
-                    row.push(field.trim());
-                    field = '';
-                } else if ((ch === '\r' || ch === '\n') && !inQuotes) {
-                    if (ch === '\r' && next === '\n') i++;
-                    row.push(field.trim());
-                    if (row.some(c => c !== '')) rows.push(row);
-                    row = [];
-                    field = '';
-                } else {
-                    field += ch;
-                }
-            }
-            if (field !== '' || row.length > 0) {
-                row.push(field.trim());
-                if (row.some(c => c !== '')) rows.push(row);
-            }
-            return rows;
-        }
-
-        // Fetch Live Data from Google Sheets CSV
-        async function loadDonorsFromSheet(isManualRefresh = false) {
-            const loadingBox = document.getElementById('loadingBox');
-            const syncBadge = document.getElementById('syncBadge');
-
-            if (allDonors.length === 0) {
-                loadingBox.style.display = 'block';
-            }
-
-            try {
-                const response = await fetch(`${CSV_URL}&t=${Date.now()}`);
-                if (!response.ok) throw new Error("Fetch failed");
-
-                const csvData = await response.text();
-                const rows = parseCSVText(csvData);
-                if (rows.length < 2) throw new Error("Empty sheet");
-
-                const headers = rows[0].map(h => h.toLowerCase().trim());
-                const idx = {
-                    name: headers.indexOf('name'),
-                    blood: headers.indexOf('blood group'),
-                    village: headers.indexOf('village'),
-                    ward: headers.indexOf('ward'),
-                    phone: headers.indexOf('phone'),
-                    date: headers.indexOf('last donation date'),
-                    photo: headers.indexOf('photo'),
-                    donations: headers.indexOf('donations')
-                };
-
-                const parsed = [];
-                for (let i = 1; i < rows.length; i++) {
-                    const r = rows[i];
-                    const name = idx.name > -1 ? (r[idx.name] || '') : (r[0] || '');
-                    const bloodGroup = (idx.blood > -1 ? (r[idx.blood] || '') : (r[1] || '')).toUpperCase().replace(/\s+/g, '');
-                    const village = idx.village > -1 ? (r[idx.village] || '') : (r[2] || '');
-                    const ward = idx.ward > -1 ? (r[idx.ward] || '') : (r[3] || '');
-                    const phone = cleanPhone(idx.phone > -1 ? (r[idx.phone] || '') : (r[4] || ''));
-                    const lastDonationDate = idx.date > -1 ? (r[idx.date] || '') : (r[5] || '');
-                    const photo = idx.photo > -1 ? (r[idx.photo] || '') : (r[6] || '');
-                    const rawDonations = idx.donations > -1 ? (r[idx.donations] || '') : (r[7] || '');
-
-                    if (!name && !phone) continue;
-
-                    // কোড থেকে সেট করা স্টার সংখ্যা থাকলে সেটিও চেক করবে
-                    const fallbackMatch = FALLBACK_DONORS.find(f => cleanPhone(f.phone) === phone || f.name.trim() === name.trim());
-                    const donationCount = parseInt(toEn(rawDonations), 10) || (fallbackMatch ? (fallbackMatch.donations || 0) : 0);
-
-                    parsed.push({
-                        name: name || "নাম উল্লেখ নেই",
-                        bloodGroup: bloodGroup || "N/A",
-                        village: village || "পি.এম.খালী",
-                        ward: ward || "উল্লেখ নেই",
-                        phone: phone,
-                        lastDonationDate: lastDonationDate,
-                        photo: photo,
-                        donations: donationCount
-                    });
-                }
-
-                allDonors = parsed.length > 0 ? parsed : [...FALLBACK_DONORS];
-                syncBadge.className = "sync-badge";
-                syncBadge.innerHTML = `<span>●</span><span>Google Sheets লাইভ সংযুক্ত</span>`;
-
-                if (isManualRefresh) {
-                    showToast(`সফলভাবে ${toBn(allDonors.length)} জন রক্তদাতার তথ্য আপডেট হয়েছে!`);
-                }
-            } catch (err) {
-                console.warn("Using fallback donor data:", err);
-                if (allDonors.length === 0) {
-                    allDonors = [...FALLBACK_DONORS];
-                }
-                syncBadge.className = "sync-badge offline";
-                syncBadge.innerHTML = `<span>●</span><span>ব্যাকআপ ডাটা চালু (রিফ্রেশ করুন)</span>`;
-
-                if (isManualRefresh) {
-                    showToast("লাইভ সংযোগ পাওয়া যায়নি, ব্যাকআপ তালিকা দেখানো হচ্ছে।");
-                }
-            } finally {
-                loadingBox.style.display = 'none';
-                applyFilters();
-            }
-        }
-
-        // First letter for fallback avatar
         function getFirstLetter(name) {
             if (!name) return "🩸";
             const cleaned = name.replace(/^(মো:|মোঃ|মোহাম্মদ|এমডি\.?)\s*/i, '').trim();
             return cleaned ? cleaned.charAt(0) : name.charAt(0);
         }
 
-        // Select Blood Group Pill
         function selectGroup(group) {
             selectedBloodGroup = group;
             document.querySelectorAll('#bloodPills .pill-btn').forEach(btn => {
@@ -1437,13 +1245,11 @@
             applyFilters();
         }
 
-        // Filter and Render Donors
         function applyFilters() {
             const wardVal = document.getElementById('wardSelect').value;
             const statusVal = document.getElementById('statusSelect').value;
             const searchVal = document.getElementById('searchBox').value.trim().toLowerCase();
 
-            // Update Stats
             const readyTotal = allDonors.filter(d => getEligibility(d.lastDonationDate).ready).length;
             document.getElementById('statReady').textContent = toBn(readyTotal);
             document.getElementById('statTotal').textContent = toBn(allDonors.length);
@@ -1465,7 +1271,6 @@
             renderCards(filtered);
         }
 
-        // Render Donor Cards HTML
         function renderCards(list) {
             const grid = document.getElementById('donorsGrid');
             const emptyBox = document.getElementById('emptyBox');
@@ -1484,13 +1289,13 @@
                 const letter = getFirstLetter(d.name);
                 const hasPhoto = d.photo && (d.photo.startsWith('http') || d.photo.startsWith('data:image'));
 
-                // রক্তদানের সংখ্যা অনুযায়ী স্টার তৈরি
                 const count = Math.max(0, parseInt(d.donations, 10) || 0);
                 const starsHtml = count > 0
                     ? `<div class="donation-stars" title="মোট ${toBn(count)} বার রক্তদান করেছেন">${'★'.repeat(count)}</div>`
                     : '';
 
-                const digits = d.phone.replace(/\D/g, '');
+                const phoneClean = cleanPhone(d.phone);
+                const digits = phoneClean.replace(/\D/g, '');
                 const waNum = digits.startsWith('88') ? digits : `88${digits}`;
                 const waText = encodeURIComponent(`আসসালামু আলাইকুম ${d.name}, পি. এম. খালী ব্লাড ডোনার সোসাইটি ওয়েবসাইট থেকে আপনার নম্বর পেয়েছি। জরুরি ভিত্তিতে ${d.bloodGroup} গ্রুপের রক্ত প্রয়োজন। আপনি কি রক্তদানে সাহায্য করতে পারবেন?`);
 
@@ -1534,13 +1339,13 @@
                                 </div>
                                 <div>
                                     <span>মোবাইল নম্বর:</span>
-                                    <strong>${d.phone || 'উল্লেখ নেই'}</strong>
+                                    <strong>${phoneClean || 'উল্লেখ নেই'}</strong>
                                 </div>
                             </div>
                         </div>
 
                         <div class="card-actions">
-                            <a href="tel:${d.phone}" class="btn-action btn-call">
+                            <a href="tel:${phoneClean}" class="btn-action btn-call">
                                 <span>📞</span>
                                 <span>সরাসরি কল</span>
                             </a>
@@ -1562,7 +1367,6 @@
             applyFilters();
         }
 
-        // Modal Functions
         function openModal() {
             document.getElementById('registerModal').classList.add('open');
         }
@@ -1575,7 +1379,6 @@
             if (e.target.id === 'registerModal') closeModal();
         }
 
-        // Handle image selection from gallery/device and compress for smooth preview
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -1689,8 +1492,9 @@
             setTimeout(() => box.classList.remove('show'), 4000);
         }
 
+        // পেজ ওপেন হওয়ার সাথে সাথেই ডোনার তালিকা দেখাবে
         window.onload = function() {
-            loadDonorsFromSheet(false);
+            applyFilters();
         };
     </script>
 </body>
