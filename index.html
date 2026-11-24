@@ -617,7 +617,7 @@
             padding: 10px 12px;
             font-size: 0.86rem;
             color: var(--slate-600);
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             border: 1px solid var(--slate-100);
         }
 
@@ -631,6 +631,31 @@
         .donor-meta strong {
             color: var(--slate-800);
             font-weight: 600;
+        }
+
+        /* Donation Photos Button on Card */
+        .btn-photos-view {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            font-family: inherit;
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-photos-view:hover {
+            background: #fde68a;
+            transform: translateY(-1px);
         }
 
         /* Vibrant Action Buttons */
@@ -701,7 +726,7 @@
             color: #ffffff;
         }
 
-        /* Registration Modal */
+        /* Modal Base */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -728,6 +753,10 @@
             animation: popIn 0.22s ease-out;
             max-height: 92vh;
             overflow-y: auto;
+        }
+
+        .gallery-modal-box {
+            max-width: 680px;
         }
 
         @keyframes popIn {
@@ -768,6 +797,37 @@
             display: flex;
             flex-direction: column;
             gap: 13px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--slate-200);
+            background: #f8fafc;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            cursor: zoom-in;
+        }
+
+        .gallery-caption {
+            padding: 8px 12px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            text-align: center;
+            background: #fffbeb;
         }
 
         .modal-grid-2 {
@@ -1040,6 +1100,19 @@
         </div>
     </footer>
 
+    <!-- Donation Photos Gallery Modal -->
+    <div id="galleryModal" class="modal-backdrop" onclick="backdropCloseGallery(event)">
+        <div class="modal-box gallery-modal-box">
+            <div class="modal-head">
+                <h3 id="galleryModalTitle">📸 রক্তদানের মুহূর্তসমূহ</h3>
+                <button type="button" class="btn-close" onclick="closeGalleryModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="galleryGrid" class="gallery-grid"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- New Donor Registration Modal -->
     <div id="registerModal" class="modal-backdrop" onclick="backdropClose(event)">
         <div class="modal-box">
@@ -1132,8 +1205,8 @@
         const ADMIN_PHONE = "8801930912687";
 
         // =========================================================================
-        // এখান থেকেই সরাসরি ডোনার যোগ করুন, ছবি বদলান এবং রক্তদানের সংখ্যা (donations) দিন
-        // মনে রাখবেন: donations: এর পর অবশ্যই একটি সংখ্যা (যেমন 0, 1, 2) লিখতে হবে, ফাঁকা রাখা যাবে না
+        // এখান থেকেই সরাসরি ডোনার যোগ করুন, ছবি বদলান, স্টার (donations) ও রক্তদানের ছবি (donationPhotos) দিন
+        // একাধিক রক্তদানের ছবি দিতে চাইলে donationPhotos: [ "লিংক-১", "লিংক-২" ] এভাবে লিখুন
         // =========================================================================
         const DONORS_LIST = [
             {
@@ -1144,7 +1217,8 @@
                 phone: "01930912687",
                 lastDonationDate: "10-1-2024",
                 photo: "https://i.ibb.co/W4wDYQ6q/Gemini-Generated-Image-uzpc6wuzpc6wuzpc.jpg",
-                donations: 1
+                donations: 1,
+                donationPhotos: []
             },
             {
                 name: "সাকিবুল হাসান",
@@ -1152,9 +1226,10 @@
                 village: "কলাতলী",
                 ward: "১নং ওয়ার্ড",
                 phone: "01829533525",
-                lastDonationDate: "10-1-2024",
+                lastDonationDate: "",
                 photo: "https://i.ibb.co/SXYK8cZ1/sakib-2.jpg",
-                donations: 0
+                donations: 0,
+                donationPhotos: []
             },
             {
                 name: "আবদুল মালেক",
@@ -1164,7 +1239,8 @@
                 phone: "01933690065",
                 lastDonationDate: "10-2-2026",
                 photo: "https://i.ibb.co/RpD9vWDB/Gemini-Generated-Image-jmexefjmexefjmex.jpg",
-                donations: 1
+                donations: 1,
+                donationPhotos: []
             },
             {
                 name: "রাসেল উদ্দিন",
@@ -1172,19 +1248,21 @@
                 village: "উত্তর পাতলী",
                 ward: "৬নং ওয়ার্ড",
                 phone: "01881182856",
-                lastDonationDate: "10-1-2024",
+                lastDonationDate: "",
                 photo: "https://i.ibb.co/h1nCR0xh/rasel.jpg",
-                donations: 0
+                donations: 0,
+                donationPhotos: []
             },
             {
-                name: "আবদুল আজিজ ফয়সাল",
+                name: "আবদুল আজিজ ফয়সাল",
                 bloodGroup: "O+",
                 village: "মধ্যম পাতলী",
                 ward: "৬নং ওয়ার্ড",
                 phone: "01302056480",
                 lastDonationDate: "14-11-2026",
                 photo: "https://i.ibb.co/wFSHqL1z/Gemini-Generated-Image-mbdb7mbdb7mbdb7m.jpg",
-                donations: 4
+                donations: 4,
+                donationPhotos: []
             },
             {
                 name: "মো: শাহেদ",
@@ -1194,27 +1272,30 @@
                 phone: "01806720029",
                 lastDonationDate: "14-11-2024",
                 photo: "https://i.ibb.co/FqdtQ3gK/sahed.jpg",
-                donations: 1
+                donations: 1,
+                donationPhotos: []
             },
             {
-                name: "রায়হান ইকবাল সিফাত",
+                name: "রায়হান ইকবাল সিফাত",
                 bloodGroup: "O+",
                 village: "মধ্যম পাতলী",
                 ward: "৬নং ওয়ার্ড",
                 phone: "01877102530",
-                lastDonationDate: "14-11-2022",
-                photo: " https://i.ibb.co/tp0qZg5j/shifat-removebg-preview-1.png",
-                donations: 0
+                lastDonationDate: "",
+                photo: "https://i.ibb.co/tp0qZg5j/shifat-removebg-preview-1.png",
+                donations: 0,
+                donationPhotos: []
             },
             {
                 name: "নজরুল ইসলাম",
                 bloodGroup: "A+",
-                village: "মুহসিনিয়া পাড়া",
+                village: "মুহসিনিয়া পাড়া",
                 ward: "৭নং ওয়ার্ড",
                 phone: "01860959514",
                 lastDonationDate: "14-08-2026",
-                photo: " https://i.ibb.co/fVWPs080/nazrul.jpg",
-                donations: 7
+                photo: "https://i.ibb.co/fVWPs080/nazrul.jpg",
+                donations: 7,
+                donationPhotos: []
             }
         ];
 
@@ -1344,7 +1425,7 @@
             }
 
             emptyBox.style.display = 'none';
-            grid.innerHTML = list.map(d => {
+            grid.innerHTML = list.map((d) => {
                 const status = getEligibility(d.lastDonationDate);
                 const formattedDate = formatDateBn(d.lastDonationDate);
                 const letter = getFirstLetter(d.name);
@@ -1354,6 +1435,17 @@
                 const count = Math.max(0, parseInt(d.donations, 10) || 0);
                 const starsHtml = count > 0
                     ? `<div class="donation-stars" title="মোট ${toBn(count)} বার রক্তদান করেছেন">${'★'.repeat(count)}</div>`
+                    : '';
+
+                const validDonationPhotos = Array.isArray(d.donationPhotos)
+                    ? d.donationPhotos.map(p => (p || '').trim()).filter(p => p.length > 0)
+                    : [];
+                const donorIndex = allDonors.indexOf(d);
+                const galleryBtnHtml = validDonationPhotos.length > 0
+                    ? `<button type="button" onclick="openGalleryModal(${donorIndex})" class="btn-photos-view">
+                           <span>📸</span>
+                           <span>রক্তদানের ছবি (${toBn(validDonationPhotos.length)}টি)</span>
+                       </button>`
                     : '';
 
                 const phoneClean = cleanPhone(d.phone);
@@ -1406,19 +1498,51 @@
                             </div>
                         </div>
 
-                        <div class="card-actions">
-                            <a href="tel:${phoneClean}" class="btn-action btn-call">
-                                <span>📞</span>
-                                <span>সরাসরি কল</span>
-                            </a>
-                            <a href="https://wa.me/${waNum}?text=${waText}" target="_blank" rel="noopener noreferrer" class="btn-action btn-whatsapp">
-                                <span>💬</span>
-                                <span>WhatsApp</span>
-                            </a>
+                        <div>
+                            ${galleryBtnHtml}
+                            <div class="card-actions">
+                                <a href="tel:${phoneClean}" class="btn-action btn-call">
+                                    <span>📞</span>
+                                    <span>সরাসরি কল</span>
+                                </a>
+                                <a href="https://wa.me/${waNum}?text=${waText}" target="_blank" rel="noopener noreferrer" class="btn-action btn-whatsapp">
+                                    <span>💬</span>
+                                    <span>WhatsApp</span>
+                                </a>
+                            </div>
                         </div>
                     </article>
                 `;
             }).join('');
+        }
+
+        // Gallery Modal Functions
+        function openGalleryModal(donorIdx) {
+            const donor = allDonors[donorIdx];
+            if (!donor || !Array.isArray(donor.donationPhotos)) return;
+
+            const photos = donor.donationPhotos.map(p => (p || '').trim()).filter(p => p.length > 0);
+            document.getElementById('galleryModalTitle').textContent = `📸 ${donor.name} — রক্তদানের ছবি (${toBn(photos.length)}টি)`;
+
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = photos.map((url, idx) => `
+                <div class="gallery-item">
+                    <a href="${url}" target="_blank" rel="noopener noreferrer" title="বড় করে দেখতে ক্লিক করুন">
+                        <img src="${url}" alt="${donor.name} - রক্তদান ${toBn(idx + 1)}">
+                    </a>
+                    <div class="gallery-caption">🩸 রক্তদানের মুহূর্ত #${toBn(idx + 1)}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('galleryModal').classList.add('open');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.remove('open');
+        }
+
+        function backdropCloseGallery(e) {
+            if (e.target.id === 'galleryModal') closeGalleryModal();
         }
 
         function resetAllFilters() {
@@ -1505,7 +1629,8 @@
                 phone: cleanPhone(document.getElementById('regPhone').value.trim()),
                 lastDonationDate: document.getElementById('regDate').value || "",
                 photo: uploadedPhotoDataUrl,
-                donations: 0
+                donations: 0,
+                donationPhotos: []
             };
         }
 
