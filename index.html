@@ -1262,6 +1262,1745 @@
                 lastDonationDate: "14-11-2026",
                 photo: "https://i.ibb.co/wFSHqL1z/Gemini-Generated-Image-mbdb7mbdb7mbdb7m.jpg",
                 donations: 4,
+                donationPhotos: ["https://i.ibb.co/PZK8xTD0/faisal1.jpg", "https://i.ibb.co/VWH0sqv8/faisal2.jpg"]
+            },
+            {
+                name: "মো: শাহেদ",
+                bloodGroup: "B+",
+                village: "মধ্যম পাতলী",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01806720029",
+                lastDonationDate: "14-11-2024",
+                photo: "https://i.ibb.co/FqdtQ3gK/sahed.jpg",
+                donations: 1,
+                donationPhotos: []
+            },
+            {
+                name: "রায়হান ইকবাল সিফাত",
+                bloodGroup: "O+",
+                village: "মধ্যম পাতলী",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01877102530",
+                lastDonationDate: "",
+                photo: "https://i.ibb.co/tp0qZg5j/shifat-removebg-preview-1.png",
+                donations: 0,
+                donationPhotos: []
+            },
+            {
+                name: "নজরুল ইসলাম",
+                bloodGroup: "A+",
+                village: "মুহসিনিয়া পাড়া",
+                ward: "৭নং ওয়ার্ড",
+                phone: "01860959514",
+                lastDonationDate: "14-08-2026",
+                photo: "https://i.ibb.co/fVWPs080/nazrul.jpg",
+                donations: 7,
+                donationPhotos: []
+            },
+            {
+                name: "মো: শওকত",
+                bloodGroup: "AB+",
+                village: "সাতকানিয়া (বর্তমান বড়বাজার)",
+                ward: "৪নং ওয়ার্ড",
+                phone: "01840097855",
+                lastDonationDate: "14-10-2026",
+                photo: "https://i.ibb.co/qL8XNGw3/sowkot.jpg",
+                donations: 3,
+                donationPhotos: []
+            },
+            {
+                name: "মোহাম্মদ সোহেল",
+                bloodGroup: "A+",
+                village: "দ: মিঠাছড়ি (বর্তমান বড়বাজার)",
+                ward: "২নং ওয়ার্ড",
+                phone: "01825113567",
+                lastDonationDate: "",
+                photo: "https://i.ibb.co.com/cK8s9NpV/Gemini-Generated-Image-5a6dcz5a6dcz5a6d-1.jpg",
+                donations: 0,
+                donationPhotos: []
+            },
+            {
+                name: "মিছবাহুল ইসলাম তামিম",
+                bloodGroup: "B+",
+                village: "পাতলী মিয়াজী পাড়া",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01735583321",
+                lastDonationDate: "10-11-2026",
+                photo: "https://i.ibb.co/xqSy6GVk/tamim.jpg",
+                donations: 6,
+                donationPhotos: [
+                    "https://i.ibb.co/8gND0QnL/t1.jpg",
+                    "https://i.ibb.co/9HB4ZBfX/t2.jpg",
+                    "https://i.ibb.co/fzxTwp4D/t4.jpg",
+                    "https://i.ibb.co/J4zpNWF/t5.jpg",
+                    "https://i.ibb.co/JWx7J1gg/t6.jpg",
+                    "https://i.ibb.co/Y76v39Jz/t11.jpg"
+                ]
+            },
+            {
+                name: "আনিসুল হক",
+                bloodGroup: "O+",
+                village: "ধাওন খালী",
+                ward: "৮নং ওয়ার্ড",
+                phone: "01854660131",
+                lastDonationDate: "11-02-2026",
+                photo: "https://i.ibb.co/s9zMyLpR/anis.jpg",
+                donations: 3,
+                donationPhotos: []
+            }
+        ];
+
+        let allDonors = [...DONORS_LIST];
+        let selectedBloodGroup = "ALL";
+        let uploadedPhotoDataUrl = "";
+
+        function toBn(num) {
+            const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            return String(num).replace(/\d/g, d => bn[d]);
+        }
+
+        function toEn(str) {
+            if (!str) return "";
+            const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+            return String(str).replace(/[০-৯]/g, d => bn.indexOf(d));
+        }
+
+        function getWardNumber(wardText) {
+            const en = toEn(wardText);
+            const match = en.match(/[1-9]/);
+            return match ? match[0] : "";
+        }
+
+        function cleanPhone(raw) {
+            if (!raw) return "";
+            let digits = toEn(raw).replace(/[^\d+]/g, '');
+            if (digits.length === 10 && digits.startsWith('1')) {
+                digits = '0' + digits;
+            }
+            return digits;
+        }
+
+        function parseDonationDate(dateStr) {
+            if (!dateStr) return null;
+            const s = toEn(dateStr).trim();
+            if (!s) return null;
+
+            let ymd = s.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
+            if (ymd) {
+                const d = new Date(parseInt(ymd[1], 10), parseInt(ymd[2], 10) - 1, parseInt(ymd[3], 10));
+                return isNaN(d.getTime()) ? null : d;
+            }
+
+            let dmy = s.match(/^(\d{1,2})[-/](\d{1,2})[-/](\d{4})$/);
+            if (dmy) {
+                const d = new Date(parseInt(dmy[3], 10), parseInt(dmy[2], 10) - 1, parseInt(dmy[1], 10));
+                return isNaN(d.getTime()) ? null : d;
+            }
+
+            const fallback = new Date(s);
+            return isNaN(fallback.getTime()) ? null : fallback;
+        }
+
+        function formatDateBn(dateStr) {
+            if (!dateStr || !dateStr.trim()) return "পূর্বে রক্তদান করেননি";
+            const d = parseDonationDate(dateStr);
+            if (!d) return dateStr;
+            const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+            return `${toBn(d.getDate())} ${months[d.getMonth()]}, ${toBn(d.getFullYear())}`;
+        }
+
+        function getEligibility(dateStr) {
+            const lastDate = parseDonationDate(dateStr);
+            if (!lastDate) return { ready: true, daysLeft: 0 };
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            lastDate.setHours(0, 0, 0, 0);
+
+            const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+            if (diffDays >= 90) {
+                return { ready: true, daysLeft: 0 };
+            }
+            return { ready: false, daysLeft: Math.max(1, 90 - diffDays) };
+        }
+
+        function getFirstLetter(name) {
+            if (!name) return "🩸";
+            const cleaned = name.replace(/^(মো:|মোঃ|মোহাম্মদ|এমডি\.?)\s*/i, '').trim();
+            return cleaned ? cleaned.charAt(0) : name.charAt(0);
+        }
+
+        function selectGroup(group) {
+            selectedBloodGroup = group;
+            document.querySelectorAll('#bloodPills .pill-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.group === group);
+            });
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const wardVal = document.getElementById('wardSelect').value;
+            const statusVal = document.getElementById('statusSelect').value;
+            const searchVal = document.getElementById('searchBox').value.trim().toLowerCase();
+
+            const readyTotal = allDonors.filter(d => getEligibility(d.lastDonationDate).ready).length;
+            document.getElementById('statReady').textContent = toBn(readyTotal);
+            document.getElementById('statTotal').textContent = toBn(allDonors.length);
+            document.getElementById('headerCountBadge').textContent = `${toBn(allDonors.length)} জন ডোনার`;
+
+            const filtered = allDonors.filter(d => {
+                const matchGroup = (selectedBloodGroup === "ALL") || (d.bloodGroup === selectedBloodGroup);
+                const matchWard = (wardVal === "ALL") || (getWardNumber(d.ward) === wardVal);
+                const isReady = getEligibility(d.lastDonationDate).ready;
+                const matchStatus = (statusVal === "ALL") || (statusVal === "READY" && isReady);
+                const matchSearch = !searchVal ||
+                    d.name.toLowerCase().includes(searchVal) ||
+                    d.village.toLowerCase().includes(searchVal) ||
+                    d.ward.toLowerCase().includes(searchVal);
+
+                return matchGroup && matchWard && matchStatus && matchSearch;
+            });
+
+            renderCards(filtered);
+        }
+
+        function renderCards(list) {
+            const grid = document.getElementById('donorsGrid');
+            const emptyBox = document.getElementById('emptyBox');
+            document.getElementById('resultsCount').textContent = `মোট ${toBn(list.length)} জন পাওয়া গেছে`;
+
+            if (list.length === 0) {
+                grid.innerHTML = '';
+                emptyBox.style.display = 'block';
+                return;
+            }
+
+            emptyBox.style.display = 'none';
+            grid.innerHTML = list.map((d) => {
+                const status = getEligibility(d.lastDonationDate);
+                const formattedDate = formatDateBn(d.lastDonationDate);
+                const letter = getFirstLetter(d.name);
+                const photoUrl = (d.photo || '').trim();
+                const hasPhoto = photoUrl && (photoUrl.startsWith('http') || photoUrl.startsWith('data:image'));
+
+                const count = Math.max(0, parseInt(d.donations, 10) || 0);
+                const starsHtml = count > 0
+                    ? `<div class="donation-stars" title="মোট ${toBn(count)} বার রক্তদান করেছেন">${'★'.repeat(count)}</div>`
+                    : '';
+
+                const validDonationPhotos = Array.isArray(d.donationPhotos)
+                    ? d.donationPhotos.map(p => (p || '').trim()).filter(p => p.length > 0)
+                    : [];
+                const donorIndex = allDonors.indexOf(d);
+                const galleryBtnHtml = validDonationPhotos.length > 0
+                    ? `<button type="button" onclick="openGalleryModal(${donorIndex})" class="btn-photos-view">
+                           <span>📸</span>
+                           <span>রক্তদানের ছবি (${toBn(validDonationPhotos.length)}টি)</span>
+                       </button>`
+                    : '';
+
+                const phoneClean = cleanPhone(d.phone);
+                const digits = phoneClean.replace(/\D/g, '');
+                const waNum = digits.startsWith('88') ? digits : `88${digits}`;
+                const waText = encodeURIComponent(`আসসালামু আলাইকুম ${d.name}, পি. এম. খালী ব্লাড ডোনার সোসাইটি ওয়েবসাইট থেকে আপনার নম্বর পেয়েছি। জরুরি ভিত্তিতে ${d.bloodGroup} গ্রুপের রক্ত প্রয়োজন। আপনি কি রক্তদানে সাহায্য করতে পারবেন?`);
+
+                return `
+                    <article class="donor-card ${status.ready ? 'ready-card' : 'waiting-card'}">
+                        <div>
+                            <div class="card-top">
+                                <div class="donor-identity">
+                                    <div class="avatar-column">
+                                        <div class="avatar-wrap">
+                                            ${hasPhoto ? `
+                                                <img src="${photoUrl}" alt="${d.name}" class="donor-photo"
+                                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                                <div class="avatar-fallback" style="display:none;">${letter}</div>
+                                            ` : `
+                                                <div class="avatar-fallback">${letter}</div>
+                                            `}
+                                        </div>
+                                        ${starsHtml}
+                                    </div>
+                                    <div>
+                                        <h3 class="donor-name">${d.name}</h3>
+                                        ${status.ready
+                                            ? `<span class="status-pill status-ready">🟢 রক্তদানে প্রস্তুত</span>`
+                                            : `<span class="status-pill status-waiting">⏳ অপেক্ষমান - ${toBn(status.daysLeft)} দিন বাকি</span>`
+                                        }
+                                    </div>
+                                </div>
+                                <div class="blood-badge">${d.bloodGroup}</div>
+                            </div>
+
+                            <div class="tags-row">
+                                <span class="tag-badge tag-village">🏡 ${d.village}</span>
+                                <span class="tag-badge tag-ward">📍 ${d.ward}</span>
+                            </div>
+
+                            <div class="donor-meta">
+                                <div>
+                                    <span>সর্বশেষ রক্তদান:</span>
+                                    <strong>${formattedDate}</strong>
+                                </div>
+                                <div>
+                                    <span>মোবাইল নম্বর:</span>
+                                    <strong>${phoneClean || 'উল্লেখ নেই'}</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            ${galleryBtnHtml}
+                            <div class="card-actions">
+                                <a href="tel:${phoneClean}" class="btn-action btn-call">
+                                    <span>📞</span>
+                                    <span>সরাসরি কল</span>
+                                </a>
+                                <a href="https://wa.me/${waNum}?text=${waText}" target="_blank" rel="noopener noreferrer" class="btn-action btn-whatsapp">
+                                    <span>💬</span>
+                                    <span>WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // Gallery Modal Functions
+        function openGalleryModal(donorIdx) {
+            const donor = allDonors[donorIdx];
+            if (!donor || !Array.isArray(donor.donationPhotos)) return;
+
+            const photos = donor.donationPhotos.map(p => (p || '').trim()).filter(p => p.length > 0);
+            document.getElementById('galleryModalTitle').textContent = `📸 ${donor.name} — রক্তদানের ছবি (${toBn(photos.length)}টি)`;
+
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = photos.map((url, idx) => `
+                <div class="gallery-item">
+                    <a href="${url}" target="_blank" rel="noopener noreferrer" title="বড় করে দেখতে ক্লিক করুন">
+                        <img src="${url}" alt="${donor.name} - রক্তদান ${toBn(idx + 1)}">
+                    </a>
+                    <div class="gallery-caption">🩸 রক্তদানের মুহূর্ত #${toBn(idx + 1)}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('galleryModal').classList.add('open');
+        }
+
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.remove('open');
+        }
+
+        function backdropCloseGallery(e) {
+            if (e.target.id === 'galleryModal') closeGalleryModal();
+        }
+
+        function resetAllFilters() {
+            selectGroup("ALL");
+            document.getElementById('wardSelect').value = "ALL";
+            document.getElementById('statusSelect').value = "ALL";
+            document.getElementById('searchBox').value = "";
+            applyFilters();
+        }
+
+        function openModal() {
+            document.getElementById('registerModal').classList.add('open');
+        }
+
+        function closeModal() {
+            document.getElementById('registerModal').classList.remove('open');
+        }
+
+        function backdropClose(e) {
+            if (e.target.id === 'registerModal') closeModal();
+        }
+
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxSize = 240;
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > height) {
+                        if (width > maxSize) {
+                            height = Math.round((height * maxSize) / width);
+                            width = maxSize;
+                        }
+                    } else {
+                        if (height > maxSize) {
+                            width = Math.round((width * maxSize) / height);
+                            height = maxSize;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    uploadedPhotoDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+                    const previewImg = document.getElementById('uploadPreviewImg');
+                    previewImg.src = uploadedPhotoDataUrl;
+                    previewImg.style.display = 'block';
+                    document.getElementById('uploadIconWrap').style.display = 'none';
+                    document.getElementById('uploadTitleText').textContent = '✅ ছবি নির্বাচন করা হয়েছে (পরিবর্তন করতে ক্লিক করুন)';
+                    document.getElementById('uploadSubText').textContent = file.name;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetPhotoUploadBox() {
+            uploadedPhotoDataUrl = "";
+            const fileInput = document.getElementById('regPhotoFile');
+            if (fileInput) fileInput.value = "";
+            document.getElementById('uploadPreviewImg').style.display = 'none';
+            document.getElementById('uploadPreviewImg').src = "";
+            document.getElementById('uploadIconWrap').style.display = 'flex';
+            document.getElementById('uploadTitleText').textContent = 'ছবি নির্বাচন করতে এখানে ক্লিক করুন';
+            document.getElementById('uploadSubText').textContent = 'মোবাইল গ্যালারি বা কম্পিউটার থেকে ছবি বেছে নিন (JPG, PNG)';
+        }
+
+        function getFormValues() {
+            return {
+                name: document.getElementById('regName').value.trim(),
+                bloodGroup: document.getElementById('regBlood').value,
+                ward: document.getElementById('regWard').value,
+                village: document.getElementById('regVillage').value.trim(),
+                phone: cleanPhone(document.getElementById('regPhone').value.trim()),
+                lastDonationDate: document.getElementById('regDate').value || "",
+                photo: uploadedPhotoDataUrl,
+                donations: 0,
+                donationPhotos: []
+            };
+        }
+
+        function submitNewDonor(e) {
+            e.preventDefault();
+            const donor = getFormValues();
+            allDonors.unshift(donor);
+            document.getElementById('donorRegForm').reset();
+            resetPhotoUploadBox();
+            closeModal();
+            resetAllFilters();
+            showToast(`ধন্যবাদ ${donor.name}! ছবিসহ তালিকায় যুক্ত করা হয়েছে।`);
+        }
+
+        function sendToAdminWhatsApp() {
+            const form = document.getElementById('donorRegForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            const d = getFormValues();
+            const hasAttachedPhoto = Boolean(d.photo);
+            allDonors.unshift(d);
+            form.reset();
+            resetPhotoUploadBox();
+            closeModal();
+            resetAllFilters();
+
+            const msg = `আসসালামু আলাইকুম, আমি "পি. এম. খালী ব্লাড ডোনার সোসাইটি" ওয়েবসাইটে স্থায়ী রক্তদাতা হিসেবে যুক্ত হতে চাই:\n\n` +
+                `নাম: ${d.name}\n` +
+                `রক্তের গ্রুপ: ${d.bloodGroup}\n` +
+                `গ্রাম: ${d.village}\n` +
+                `ওয়ার্ড: ${d.ward}\n` +
+                `মোবাইল: ${d.phone}\n` +
+                `সর্বশেষ রক্তদান: ${d.lastDonationDate || 'পূর্বে রক্তদান করিনি'}\n` +
+                `প্রোফাইল ছবি: ${hasAttachedPhoto ? 'ছবি নির্বাচন করা হয়েছে (চ্যাটে ছবিটি পাঠিয়ে দিচ্ছি)' : 'নেই'}`;
+
+            window.open(`https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer');
+            showToast("অ্যাডমিনের WhatsApp ওপেন করা হয়েছে!");
+        }
+
+        function showToast(msg) {
+            const box = document.getElementById('toastBox');
+            box.textContent = msg;
+            box.classList.add('show');
+            setTimeout(() => box.classList.remove('show'), 4000);
+        }
+
+        // পেজ ওপেন হওয়ার সাথে সাথেই ডোনার তালিকা দেখাবে
+        window.onload = function() {
+            applyFilters();
+        };
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>পি.এম.খালী ব্লাড ডোনার সোসাইটি | মানবতার সেবায় রক্তদান</title>
+    
+    <!-- Google Fonts: Hind Siliguri & Noto Sans Bengali -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --crimson-900: #7f1d1d;
+            --crimson-700: #b91c1c;
+            --crimson-600: #dc2626;
+            --rose-600: #e11d48;
+            --orange-500: #f97316;
+            --amber-500: #f59e0b;
+            --amber-100: #fef3c7;
+            --amber-800: #92400e;
+            --emerald-600: #059669;
+            --emerald-500: #10b981;
+            --emerald-100: #d1fae5;
+            --emerald-800: #065f46;
+            --whatsapp-green: #25D366;
+            --whatsapp-dark: #128C7E;
+            --royal-600: #2563eb;
+            --slate-900: #0f172a;
+            --slate-800: #1e293b;
+            --slate-600: #475569;
+            --slate-500: #64748b;
+            --slate-200: #e2e8f0;
+            --slate-100: #f1f5f9;
+            --bg-page: #f8fafc;
+            --white: #ffffff;
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
+            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+            --shadow-lg: 0 20px 35px -10px rgba(220, 38, 38, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            background-image: radial-gradient(circle at top right, rgba(254, 226, 226, 0.55), transparent 45%),
+                              radial-gradient(circle at bottom left, rgba(219, 234, 254, 0.45), transparent 45%);
+            color: var(--slate-800);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Vibrant Gradient Header Banner */
+        .hero-header {
+            background: linear-gradient(135deg, var(--crimson-900) 0%, var(--crimson-600) 48%, var(--rose-600) 78%, var(--orange-500) 100%);
+            color: var(--white);
+            padding: 28px 0 64px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero-header::before {
+            content: "";
+            position: absolute;
+            top: -80px;
+            right: -60px;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-header::after {
+            content: "";
+            position: absolute;
+            bottom: -90px;
+            left: -50px;
+            width: 240px;
+            height: 240px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(251, 191, 36, 0.22) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .header-top {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .blood-drop-glow {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #ffffff, #ffe4e6);
+            color: var(--crimson-600);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.45);
+            flex-shrink: 0;
+            animation: pulseGlow 2.4s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
+            50% { transform: scale(1.06); box-shadow: 0 0 32px rgba(254, 202, 202, 0.85); }
+        }
+
+        .brand-title h1 {
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .brand-subtitle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.92rem;
+            color: #ffe4e6;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        .live-count-pill {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 3px 12px;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 8px #4ade80;
+        }
+
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-register-hero {
+            background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+            color: var(--crimson-700);
+            border: none;
+            padding: 11px 20px;
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 0.96rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            transition: all 0.2s ease;
+        }
+
+        .btn-register-hero:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+            background: #ffffff;
+        }
+
+        .hero-tagline {
+            margin-top: 18px;
+            max-width: 760px;
+            font-size: 0.98rem;
+            color: #fff1f2;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Quick Stats Bar */
+        .stats-wrapper {
+            margin-top: -38px;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 24px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .stat-card {
+            border-radius: 20px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            transition: transform 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .stat-emerald {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 5px solid var(--emerald-600);
+        }
+
+        .stat-crimson {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 5px solid var(--crimson-600);
+        }
+
+        .stat-royal {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 5px solid var(--royal-600);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--white);
+            font-size: 1.3rem;
+        }
+
+        .stat-emerald .stat-icon { background: linear-gradient(135deg, var(--emerald-500), var(--emerald-600)); }
+        .stat-crimson .stat-icon { background: linear-gradient(135deg, var(--rose-600), var(--crimson-600)); }
+        .stat-royal .stat-icon { background: linear-gradient(135deg, #3b82f6, var(--royal-600)); }
+
+        .stat-value {
+            font-size: 1.55rem;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--slate-900);
+        }
+
+        .stat-label {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--slate-600);
+        }
+
+        /* Search & Filter Card */
+        .filter-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 22px 24px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--slate-200);
+            margin-bottom: 28px;
+        }
+
+        .filter-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid var(--slate-100);
+        }
+
+        .filter-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sync-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+            background: var(--emerald-100);
+            color: var(--emerald-800);
+        }
+
+        .pills-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--slate-600);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .blood-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .pill-btn {
+            padding: 7px 15px;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 700;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .pill-all { background: #f1f5f9; color: #334155; border-color: #cbd5e1; }
+        .pill-pos { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+        .pill-neg { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
+
+        .pill-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .pill-btn.active {
+            background: linear-gradient(135deg, var(--crimson-600), var(--rose-600));
+            color: var(--white);
+            border-color: var(--crimson-700);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .filter-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            margin-bottom: 6px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 14px;
+            border: 2px solid var(--slate-200);
+            background-color: #f8fafc;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--slate-800);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .form-control:focus {
+            background-color: var(--white);
+            border-color: var(--rose-600);
+            box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.14);
+        }
+
+        /* Results Bar */
+        .results-header {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+
+        .results-header h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--slate-900);
+        }
+
+        .results-count {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: var(--crimson-700);
+            background: #fee2e2;
+            padding: 4px 14px;
+            border-radius: 999px;
+        }
+
+        /* Donor Cards Grid */
+        .donors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .donor-card {
+            background: var(--white);
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--slate-200);
+            border-top: 5px solid var(--crimson-600);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.22s ease;
+            position: relative;
+        }
+
+        .donor-card.ready-card {
+            border-top-color: var(--emerald-500);
+        }
+
+        .donor-card.waiting-card {
+            border-top-color: var(--amber-500);
+        }
+
+        .donor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .donor-identity {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .avatar-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .avatar-wrap {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            position: relative;
+            padding: 3px;
+            background: linear-gradient(135deg, var(--crimson-600), var(--orange-500));
+        }
+
+        .donor-photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--white);
+            display: block;
+        }
+
+        .avatar-fallback {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffe4e6, #fecdd3);
+            color: var(--crimson-700);
+            font-size: 1.55rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Donation Stars Below Photo */
+        .donation-stars {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            line-height: 1;
+            color: var(--amber-500);
+            letter-spacing: 1px;
+            text-align: center;
+            text-shadow: 0 1px 2px rgba(245, 158, 11, 0.3);
+            max-width: 78px;
+            word-wrap: break-word;
+        }
+
+        .donor-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--slate-900);
+            line-height: 1.25;
+            word-break: break-word;
+            padding-top: 4px;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .status-ready {
+            background: var(--emerald-100);
+            color: var(--emerald-800);
+            border: 1px solid #a7f3d0;
+        }
+
+        .status-waiting {
+            background: var(--amber-100);
+            color: var(--amber-800);
+            border: 1px solid #fde68a;
+        }
+
+        .blood-badge {
+            background: linear-gradient(135deg, var(--crimson-600), var(--rose-600));
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 800;
+            min-width: 52px;
+            height: 52px;
+            padding: 0 10px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 14px rgba(220, 38, 38, 0.28);
+            flex-shrink: 0;
+        }
+
+        .tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .tag-badge {
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tag-village {
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+
+        .tag-ward {
+            background: #fdf2f8;
+            color: #be185d;
+            border: 1px solid #fbcfe8;
+        }
+
+        .donor-meta {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 10px 12px;
+            font-size: 0.86rem;
+            color: var(--slate-600);
+            margin-bottom: 12px;
+            border: 1px solid var(--slate-100);
+        }
+
+        .donor-meta div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 0;
+        }
+
+        .donor-meta strong {
+            color: var(--slate-800);
+            font-weight: 600;
+        }
+
+        /* Donation Photos Button on Card */
+        .btn-photos-view {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            color: #92400e;
+            border: 1px solid #fcd34d;
+            font-family: inherit;
+            font-size: 0.86rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-photos-view:hover {
+            background: #fde68a;
+            transform: translateY(-1px);
+        }
+
+        /* Vibrant Action Buttons */
+        .card-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .btn-action {
+            text-decoration: none;
+            padding: 11px 12px;
+            border-radius: 14px;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--white);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-call {
+            background: linear-gradient(135deg, var(--emerald-500), var(--emerald-600));
+            box-shadow: 0 4px 12px rgba(5, 150, 105, 0.28);
+        }
+
+        .btn-call:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: translateY(-1px);
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, var(--whatsapp-green), var(--whatsapp-dark));
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.28);
+        }
+
+        .btn-whatsapp:hover {
+            background: linear-gradient(135deg, #20bd5a, #0e766a);
+            transform: translateY(-1px);
+        }
+
+        /* Empty State */
+        .state-box {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--slate-200);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .site-footer {
+            margin-top: auto;
+            background: linear-gradient(135deg, var(--slate-900) 0%, #1e1b4b 100%);
+            color: #cbd5e1;
+            padding: 28px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .site-footer strong {
+            color: #ffffff;
+        }
+
+        /* Modal Base */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 100;
+        }
+
+        .modal-backdrop.open {
+            display: flex;
+        }
+
+        .modal-box {
+            background: var(--white);
+            width: 100%;
+            max-width: 500px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+            animation: popIn 0.22s ease-out;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        .gallery-modal-box {
+            max-width: 680px;
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.94); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .modal-head {
+            background: linear-gradient(135deg, var(--crimson-600), var(--rose-600), var(--orange-500));
+            color: var(--white);
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-head h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .btn-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--white);
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-body {
+            padding: 20px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 14px;
+        }
+
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--slate-200);
+            background: #f8fafc;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+            cursor: zoom-in;
+        }
+
+        .gallery-caption {
+            padding: 8px 12px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            color: var(--slate-700);
+            text-align: center;
+            background: #fffbeb;
+        }
+
+        .modal-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .info-note {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 10px 12px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+        }
+
+        .modal-footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 6px;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--slate-900);
+            color: var(--white);
+            padding: 13px 18px;
+            border-radius: 14px;
+            border-left: 5px solid var(--emerald-500);
+            box-shadow: var(--shadow-md);
+            font-size: 0.92rem;
+            font-weight: 600;
+            z-index: 200;
+            transform: translateY(120%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 340px;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Interactive Photo Upload Box */
+        .photo-upload-box {
+            border: 2px dashed #fda4af;
+            background: linear-gradient(135deg, #fff1f2 0%, #f8fafc 100%);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .photo-upload-box:hover {
+            border-color: var(--crimson-600);
+            background: #ffe4e6;
+            transform: translateY(-1px);
+        }
+
+        .photo-upload-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--crimson-600), var(--rose-600));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.35rem;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+        }
+
+        .photo-preview-img {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--crimson-600);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: none;
+        }
+
+        .photo-upload-title {
+            font-size: 0.94rem;
+            font-weight: 700;
+            color: var(--crimson-700);
+        }
+
+        .photo-upload-sub {
+            font-size: 0.78rem;
+            color: var(--slate-500);
+        }
+
+        @media (max-width: 960px) {
+            .donors-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 720px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .filter-inputs { grid-template-columns: 1fr; }
+            .donors-grid { grid-template-columns: 1fr; }
+            .modal-grid-2 { grid-template-columns: 1fr; }
+            .hero-header { padding: 22px 0 54px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toastBox" class="toast"></div>
+
+    <!-- Header Banner -->
+    <header class="hero-header">
+        <div class="container">
+            <div class="header-top">
+                <div class="brand-box">
+                    <div class="blood-drop-glow" aria-hidden="true">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.2C12 2.2 5 9.6 5 14.5C5 18.6 8.1 22 12 22C15.9 22 19 18.6 19 14.5C19 9.6 12 2.2 12 2.2ZM10.2 17.8C8.6 17.2 7.8 15.6 8.1 13.8C8.2 13.3 8.7 13 9.2 13.1C9.7 13.2 10 13.7 9.9 14.2C9.7 15.2 10.2 16 11 16.3C11.5 16.5 11.7 17 11.5 17.5C11.3 17.9 10.7 18 10.2 17.8Z"/>
+                        </svg>
+                    </div>
+                    <div class="brand-title">
+                        <h1>পি. এম. খালী ব্লাড ডোনার সোসাইটি</h1>
+                        <div class="brand-subtitle">
+                            <span>মানবতার সেবায় স্বেচ্ছায় রক্তদান</span>
+                            <span class="live-count-pill">
+                                <span class="live-dot"></span>
+                                <span id="headerCountBadge">০ জন ডোনার</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button type="button" onclick="openModal()" class="btn-register-hero">
+                        <span>➕</span>
+                        <span>নতুন রক্তদাতা হোন</span>
+                    </button>
+                </div>
+            </div>
+
+            <p class="hero-tagline">
+                কক্সবাজার সদর উপজেলার পি.এম.খালী ইউনিয়নের ১নং থেকে ৯নং ওয়ার্ডের স্বেচ্ছাসেবী রক্তদাতাদের স্থায়ী ডিজিটাল তালিকা। জরুরি মুহূর্তে রক্তের গ্রুপ ও এলাকা নির্বাচন করে সরাসরি কল বা হোয়াটসঅ্যাপ করুন।
+            </p>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <section class="container stats-wrapper">
+        <div class="stats-grid">
+            <div class="stat-card stat-emerald">
+                <div class="stat-icon">✅</div>
+                <div>
+                    <div class="stat-value" id="statReady">০</div>
+                    <div class="stat-label">রক্তদানে প্রস্তুত</div>
+                </div>
+            </div>
+
+            <div class="stat-card stat-crimson">
+                <div class="stat-icon">🩸</div>
+                <div>
+                    <div class="stat-value" id="statTotal">০</div>
+                    <div class="stat-label">মোট নিবন্ধিত ডোনার</div>
+                </div>
+            </div>
+
+            <div class="stat-card stat-royal">
+                <div class="stat-icon">📍</div>
+                <div>
+                    <div class="stat-value" style="font-size: 1.15rem;">পি.এম.খালী ইউনিয়ন</div>
+                    <div class="stat-label">১নং — ৯নং ওয়ার্ড, কক্সবাজার সদর</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="filter-card">
+            <div class="filter-header">
+                <div class="filter-title">
+                    <span>🔍</span>
+                    <span>রক্তদাতা খুঁজুন ও ফিল্টার করুন</span>
+                </div>
+                <div class="sync-badge">
+                    <span>●</span>
+                    <span>যাচাইকৃত ডোনার তালিকা</span>
+                </div>
+            </div>
+
+            <span class="pills-label">রক্তের গ্রুপ নির্বাচন করুন:</span>
+            <div class="blood-pills" id="bloodPills">
+                <button type="button" class="pill-btn pill-all active" data-group="ALL" onclick="selectGroup('ALL')">সকল গ্রুপ</button>
+                <button type="button" class="pill-btn pill-pos" data-group="A+" onclick="selectGroup('A+')">A+</button>
+                <button type="button" class="pill-btn pill-neg" data-group="A-" onclick="selectGroup('A-')">A-</button>
+                <button type="button" class="pill-btn pill-pos" data-group="B+" onclick="selectGroup('B+')">B+</button>
+                <button type="button" class="pill-btn pill-neg" data-group="B-" onclick="selectGroup('B-')">B-</button>
+                <button type="button" class="pill-btn pill-pos" data-group="O+" onclick="selectGroup('O+')">O+</button>
+                <button type="button" class="pill-btn pill-neg" data-group="O-" onclick="selectGroup('O-')">O-</button>
+                <button type="button" class="pill-btn pill-pos" data-group="AB+" onclick="selectGroup('AB+')">AB+</button>
+                <button type="button" class="pill-btn pill-neg" data-group="AB-" onclick="selectGroup('AB-')">AB-</button>
+            </div>
+
+            <div class="filter-inputs">
+                <div class="input-group">
+                    <label for="wardSelect">ওয়ার্ড নং (১ - ৯)</label>
+                    <select id="wardSelect" class="form-control" onchange="applyFilters()">
+                        <option value="ALL">সকল ওয়ার্ড (পি.এম.খালী)</option>
+                        <option value="1">১নং ওয়ার্ড</option>
+                        <option value="2">২নং ওয়ার্ড</option>
+                        <option value="3">৩নং ওয়ার্ড</option>
+                        <option value="4">৪নং ওয়ার্ড</option>
+                        <option value="5">৫নং ওয়ার্ড</option>
+                        <option value="6">৬নং ওয়ার্ড</option>
+                        <option value="7">৭নং ওয়ার্ড</option>
+                        <option value="8">৮নং ওয়ার্ড</option>
+                        <option value="9">৯নং ওয়ার্ড</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="statusSelect">বর্তমান স্ট্যাটাস</label>
+                    <select id="statusSelect" class="form-control" onchange="applyFilters()">
+                        <option value="ALL">সবাই (সকল ডোনার)</option>
+                        <option value="READY">শুধুমাত্র রক্তদানে প্রস্তুত</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="searchBox">গ্রাম বা ডোনারের নাম</label>
+                    <input type="text" id="searchBox" class="form-control" placeholder="যেমন: উত্তর পাতলী, আল আমিন..." oninput="applyFilters()">
+                </div>
+            </div>
+        </section>
+
+        <div class="results-header">
+            <h2>তালিকাভুক্ত রক্তদাতাগণ</h2>
+            <span id="resultsCount" class="results-count">লোড হচ্ছে...</span>
+        </div>
+
+        <!-- Donor Cards Grid -->
+        <section id="donorsGrid" class="donors-grid"></section>
+
+        <!-- Empty State -->
+        <div id="emptyBox" class="state-box" style="display: none;">
+            <div style="font-size: 2.5rem; margin-bottom: 8px;">🩸</div>
+            <h3>কোনো রক্তদাতা পাওয়া যায়নি</h3>
+            <p style="color: var(--slate-500); font-size: 0.92rem; margin: 6px 0 16px 0;">নির্বাচিত ফিল্টার বা গ্রাম/নামের সাথে মিলে এমন কোনো ডোনার নেই।</p>
+            <button type="button" onclick="resetAllFilters()" class="btn-action btn-call" style="padding: 10px 22px;">সব ডোনার দেখুন</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p><strong>পি. এম. খালী ব্লাড ডোনার সোসাইটি</strong> — পি.এম.খালী ইউনিয়ন, কক্সবাজার সদর</p>
+            <p style="margin-top: 6px; font-size: 0.84rem; color: #94a3b8;">জরুরি প্রয়োজনে রক্তদাতার সাথে সরাসরি কল বা হোয়াটসঅ্যাপে যোগাযোগ করুন। রক্তদানে কোনো আর্থিক লেনদেন নিষিদ্ধ।</p>
+        </div>
+    </footer>
+
+    <!-- Donation Photos Gallery Modal -->
+    <div id="galleryModal" class="modal-backdrop" onclick="backdropCloseGallery(event)">
+        <div class="modal-box gallery-modal-box">
+            <div class="modal-head">
+                <h3 id="galleryModalTitle">📸 রক্তদানের মুহূর্তসমূহ</h3>
+                <button type="button" class="btn-close" onclick="closeGalleryModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div id="galleryGrid" class="gallery-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Donor Registration Modal -->
+    <div id="registerModal" class="modal-backdrop" onclick="backdropClose(event)">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h3>🩸 নতুন রক্তদাতা নিবন্ধন ফর্ম</h3>
+                <button type="button" class="btn-close" onclick="closeModal()">✕</button>
+            </div>
+            <form id="donorRegForm" class="modal-body" onsubmit="submitNewDonor(event)">
+                <div class="input-group">
+                    <label for="regName">রক্তদাতার পূর্ণ নাম *</label>
+                    <input type="text" id="regName" class="form-control" required placeholder="যেমন: মো: আল আমিন">
+                </div>
+
+                <div class="modal-grid-2">
+                    <div class="input-group">
+                        <label for="regBlood">রক্তের গ্রুপ *</label>
+                        <select id="regBlood" class="form-control" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="regWard">ওয়ার্ড নং *</label>
+                        <select id="regWard" class="form-control" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="১নং ওয়ার্ড">১নং ওয়ার্ড</option>
+                            <option value="২নং ওয়ার্ড">২নং ওয়ার্ড</option>
+                            <option value="৩নং ওয়ার্ড">৩নং ওয়ার্ড</option>
+                            <option value="৪নং ওয়ার্ড">৪নং ওয়ার্ড</option>
+                            <option value="৫নং ওয়ার্ড">৫নং ওয়ার্ড</option>
+                            <option value="৬নং ওয়ার্ড">৬নং ওয়ার্ড</option>
+                            <option value="৭নং ওয়ার্ড">৭নং ওয়ার্ড</option>
+                            <option value="৮নং ওয়ার্ড">৮নং ওয়ার্ড</option>
+                            <option value="৯নং ওয়ার্ড">৯নং ওয়ার্ড</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="regVillage">গ্রাম / পাড়ার নাম *</label>
+                    <input type="text" id="regVillage" class="form-control" required placeholder="যেমন: উত্তর পাতলী">
+                </div>
+
+                <div class="modal-grid-2">
+                    <div class="input-group">
+                        <label for="regPhone">মোবাইল নম্বর *</label>
+                        <input type="tel" id="regPhone" class="form-control" required placeholder="01930912687">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="regDate">সর্বশেষ রক্তদানের তারিখ</label>
+                        <input type="date" id="regDate" class="form-control">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>প্রোফাইল ছবি যুক্ত করুন (ঐচ্ছিক)</label>
+                    <input type="file" id="regPhotoFile" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                    <div class="photo-upload-box" onclick="document.getElementById('regPhotoFile').click()">
+                        <div id="uploadIconWrap" class="photo-upload-icon">📷</div>
+                        <img id="uploadPreviewImg" class="photo-preview-img" alt="নির্বাচিত ছবি">
+                        <div id="uploadTitleText" class="photo-upload-title">ছবি নির্বাচন করতে এখানে ক্লিক করুন</div>
+                        <div id="uploadSubText" class="photo-upload-sub">মোবাইল গ্যালারি বা কম্পিউটার থেকে ছবি বেছে নিন (JPG, PNG)</div>
+                    </div>
+                </div>
+
+                <div class="info-note">
+                    💡 <strong>স্থায়ীভাবে যুক্ত করার নিয়ম:</strong> <strong>"WhatsApp-এ পাঠান"</strong> বাটনে ক্লিক করলে আপনার তথ্য সরাসরি অ্যাডমিনের কাছে চলে যাবে এবং ওয়েবসাইটে স্থায়ীভাবে যুক্ত করা হবে।
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" onclick="closeModal()" class="pill-btn pill-all">বাতিল</button>
+                    <button type="submit" class="btn-action btn-call" style="padding: 10px 16px;">তালিকায় যোগ করুন</button>
+                    <button type="button" onclick="sendToAdminWhatsApp()" class="btn-action btn-whatsapp" style="padding: 10px 16px;">💬 WhatsApp-এ পাঠান</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const ADMIN_PHONE = "8801930912687";
+
+        // =========================================================================
+        // এখান থেকেই সরাসরি ডোনার যোগ করুন, ছবি বদলান, স্টার (donations) ও রক্তদানের ছবি (donationPhotos) দিন
+        // একাধিক রক্তদানের ছবি দিতে চাইলে donationPhotos: [ "লিংক-১", "লিংক-২" ] এভাবে লিখুন
+        // =========================================================================
+        const DONORS_LIST = [
+            {
+                name: "মো: আল আমিন (Admin)",
+                bloodGroup: "B+",
+                village: "উত্তর পাতলী",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01930912687",
+                lastDonationDate: "10-1-2024",
+                photo: "https://i.ibb.co/W4wDYQ6q/Gemini-Generated-Image-uzpc6wuzpc6wuzpc.jpg",
+                donations: 1,
+                donationPhotos: []
+            },
+            {
+                name: "সাকিবুল হাসান",
+                bloodGroup: "B+",
+                village: "কলাতলী",
+                ward: "১নং ওয়ার্ড",
+                phone: "01829533525",
+                lastDonationDate: "",
+                photo: "https://i.ibb.co/SXYK8cZ1/sakib-2.jpg",
+                donations: 0,
+                donationPhotos: []
+            },
+            {
+                name: "আবদুল মালেক",
+                bloodGroup: "A+",
+                village: "উত্তর পাতলী",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01933690065",
+                lastDonationDate: "10-2-2026",
+                photo: "https://i.ibb.co/RpD9vWDB/Gemini-Generated-Image-jmexefjmexefjmex.jpg",
+                donations: 1,
+                donationPhotos: []
+            },
+            {
+                name: "রাসেল উদ্দিন",
+                bloodGroup: "O-",
+                village: "উত্তর পাতলী",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01881182856",
+                lastDonationDate: "",
+                photo: "https://i.ibb.co/h1nCR0xh/rasel.jpg",
+                donations: 0,
+                donationPhotos: []
+            },
+            {
+                name: "আবদুল আজিজ ফয়সাল",
+                bloodGroup: "O+",
+                village: "মধ্যম পাতলী",
+                ward: "৬নং ওয়ার্ড",
+                phone: "01302056480",
+                lastDonationDate: "14-11-2026",
+                photo: "https://i.ibb.co/wFSHqL1z/Gemini-Generated-Image-mbdb7mbdb7mbdb7m.jpg",
+                donations: 4,
                 donationPhotos: ["https://i.ibb.co/PZK8xTD0/faisal1.jpg", " https://i.ibb.co/VWH0sqv8/faisal2.jpg"]
             },
             {
