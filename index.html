@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>পি. এম. খালী ব্লাড ডোনার সোসাইটি | মানবতার সেবায় রক্তদান</title>
+    <title>পি.এম.খালী ব্লাড ডোনার সোসাইটি | মানবতার সেবায় রক্তদান</title>
     
     <!-- Google Fonts: Hind Siliguri & Noto Sans Bengali -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,6 +69,7 @@
             padding: 0 16px;
         }
 
+        /* Vibrant Gradient Header Banner */
         .hero-header {
             background: linear-gradient(135deg, var(--crimson-900) 0%, var(--crimson-600) 48%, var(--rose-600) 78%, var(--orange-500) 100%);
             color: var(--white);
@@ -216,6 +217,7 @@
             z-index: 2;
         }
 
+        /* Quick Stats Bar */
         .stats-wrapper {
             margin-top: -38px;
             position: relative;
@@ -288,82 +290,7 @@
             color: var(--slate-600);
         }
 
-        .guidelines-card {
-            background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 50%, #fef2f2 100%);
-            border: 1.5px solid #fed7aa;
-            border-left: 6px solid var(--orange-500);
-            border-radius: 22px;
-            padding: 18px 22px;
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 24px;
-        }
-
-        .guidelines-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-        }
-
-        .guidelines-title {
-            font-size: 1.08rem;
-            font-weight: 700;
-            color: #9a3412;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .guidelines-toggle-btn {
-            background: rgba(249, 115, 22, 0.14);
-            color: #9a3412;
-            border: 1px solid #fdba74;
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-family: inherit;
-            font-size: 0.8rem;
-            font-weight: 700;
-            cursor: pointer;
-            flex-shrink: 0;
-            transition: all 0.2s ease;
-        }
-
-        .guidelines-toggle-btn:hover {
-            background: rgba(249, 115, 22, 0.24);
-        }
-
-        .guidelines-list {
-            list-style: none;
-            margin-top: 14px;
-            padding-top: 12px;
-            border-top: 1px dashed #fdba74;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px 18px;
-        }
-
-        .guidelines-list.collapsed {
-            display: none;
-        }
-
-        .guidelines-list li {
-            font-size: 0.9rem;
-            color: var(--slate-800);
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            line-height: 1.45;
-            background: rgba(255, 255, 255, 0.72);
-            padding: 9px 12px;
-            border-radius: 12px;
-            border: 1px solid rgba(253, 186, 116, 0.45);
-        }
-
-        .guidelines-list li strong {
-            color: #9a3412;
-        }
-
+        /* Search & Filter Card */
         .filter-card {
             background: var(--white);
             border-radius: 24px;
@@ -480,6 +407,7 @@
             box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.14);
         }
 
+        /* Results Bar */
         .results-header {
             display: flex;
             flex-wrap: wrap;
@@ -504,6 +432,7 @@
             border-radius: 999px;
         }
 
+        /* Donor Cards Grid */
         .donors-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -592,6 +521,7 @@
             justify-content: center;
         }
 
+        /* Donation Stars Below Photo */
         .donation-stars {
             margin-top: 5px;
             font-size: 0.9rem;
@@ -703,6 +633,7 @@
             font-weight: 600;
         }
 
+        /* Donation Photos Button on Card */
         .btn-photos-view {
             width: 100%;
             margin-bottom: 10px;
@@ -727,6 +658,7 @@
             transform: translateY(-1px);
         }
 
+        /* Vibrant Action Buttons */
         .card-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -769,6 +701,7 @@
             transform: translateY(-1px);
         }
 
+        /* Empty State */
         .state-box {
             background: var(--white);
             border-radius: 24px;
@@ -779,6 +712,7 @@
             margin-bottom: 40px;
         }
 
+        /* Footer */
         .site-footer {
             margin-top: auto;
             background: linear-gradient(135deg, var(--slate-900) 0%, #1e1b4b 100%);
@@ -792,6 +726,7 @@
             color: #ffffff;
         }
 
+        /* Modal Base */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -918,6 +853,7 @@
             margin-top: 6px;
         }
 
+        /* Toast Notification */
         .toast {
             position: fixed;
             bottom: 20px;
@@ -942,6 +878,7 @@
             opacity: 1;
         }
 
+        /* Interactive Photo Upload Box */
         .photo-upload-box {
             border: 2px dashed #fda4af;
             background: linear-gradient(135deg, #fff1f2 0%, #f8fafc 100%);
@@ -1003,7 +940,6 @@
 
         @media (max-width: 720px) {
             .stats-grid { grid-template-columns: 1fr; }
-            .guidelines-list { grid-template-columns: 1fr; }
             .filter-inputs { grid-template-columns: 1fr; }
             .donors-grid { grid-template-columns: 1fr; }
             .modal-grid-2 { grid-template-columns: 1fr; }
@@ -1082,40 +1018,6 @@
 
     <!-- Main Content -->
     <main class="container">
-        <!-- Recipient Guidelines Box (Above Search Box) -->
-        <section class="guidelines-card" aria-label="রক্তগ্রহীতাদের প্রতি মানবিক অনুরোধ ও নিয়মাবলি">
-            <div class="guidelines-header" onclick="toggleGuidelines()">
-                <div class="guidelines-title">
-                    <span>🤝</span>
-                    <span>রক্তগ্রহীতাদের প্রতি মানবিক অনুরোধ ও নিয়মাবলি</span>
-                </div>
-                <button type="button" id="guidelinesToggleBtn" class="guidelines-toggle-btn">লুকান ▲</button>
-            </div>
-            <ul id="guidelinesList" class="guidelines-list">
-                <li>
-                    <span>💛</span>
-                    <div><strong>আন্তরিক ব্যবহার ও সম্মান:</strong> স্বেচ্ছাসেবী রক্তদাতারা নিঃস্বার্থভাবে মানবতার টানে রক্ত দেন; কল বা মেসেজে তাঁদের সাথে সর্বোচ্চ বিনয়ী ও সম্মানজনক আচরণ করুন।</div>
-                </li>
-                <li>
-                    <span>🏥</span>
-                    <div><strong>সঠিক তথ্য ও ক্রস-ম্যাচিং:</strong> রোগীর নাম, বয়স, হিমোগ্লোবিন পয়েন্ট, হাসপাতালের নাম এবং চিকিৎসকের চাহিদাপত্র নিশ্চিত করে তবেই ডোনারকে ডাকুন।</div>
-                </li>
-                <li>
-                    <span>🚕</span>
-                    <div><strong>যাতায়াত ও আপ্যায়নের সুব্যবস্থা:</strong> অনেক ডোনার দূর-দূরান্ত বা কর্মস্থল থেকে ছুটে আসেন; সম্ভব হলে তাঁদের যাতায়াত ভাড়া ও রক্তদানের পর হালকা পুষ্টিকর নাস্তার ব্যবস্থা রাখুন।</div>
-                </li>
-                <li>
-                    <span>📸</span>
-                    <div><strong>রক্তদানের ছবি ও আপডেট শেয়ার:</strong> রক্তদান সম্পন্ন হলে ডোনারের অনুমতিক্রমে একটি ছবি ও তথ্য এডমিনকে পাঠান, যাতে ওয়েবসাইটে আপডেট করা যায় এবং অন্যরা অনুপ্রাণিত হন।</div>
-                </li>
-                <li style="grid-column: 1 / -1;">
-                    <span>🚫</span>
-                    <div><strong>আর্থিক লেনদেন সম্পূর্ণ নিষিদ্ধ:</strong> স্বেচ্ছায় রক্তদান একটি মহৎ মানবিক কাজ; রক্তের বিনিময়ে কোনো ধরনের আর্থিক লেনদেন বা দালালির প্রশ্রয় দেবেন না।</div>
-                </li>
-            </ul>
-        </section>
-
-        <!-- Search & Filter Card -->
         <section class="filter-card">
             <div class="filter-header">
                 <div class="filter-title">
@@ -1302,6 +1204,10 @@
     <script>
         const ADMIN_PHONE = "8801930912687";
 
+        // =========================================================================
+        // এখান থেকেই সরাসরি ডোনার যোগ করুন, ছবি বদলান, স্টার (donations) ও রক্তদানের ছবি (donationPhotos) দিন
+        // একাধিক রক্তদানের ছবি দিতে চাইলে donationPhotos: [ "লিংক-১", "লিংক-২" ] এভাবে লিখুন
+        // =========================================================================
         const DONORS_LIST = [
             {
                 name: "মো: আল আমিন (Admin)",
@@ -1356,7 +1262,7 @@
                 lastDonationDate: "14-11-2026",
                 photo: "https://i.ibb.co/wFSHqL1z/Gemini-Generated-Image-mbdb7mbdb7mbdb7m.jpg",
                 donations: 4,
-                donationPhotos: ["https://i.ibb.co/PZK8xTD0/faisal1.jpg", "https://i.ibb.co/h1nCR0xh/rasel.jpg"]
+                donationPhotos: ["https://i.ibb.co/PZK8xTD0/faisal1.jpg", "https://i.ibb.co/VWH0sqv8/faisal2.jpg"]
             },
             {
                 name: "মো: শাহেদ",
@@ -1392,35 +1298,61 @@
                 donationPhotos: []
             },
             {
+                name: "মো: শওকত",
+                bloodGroup: "AB+",
+                village: "সাতকানিয়া (বর্তমান বড়বাজার)",
+                ward: "৪নং ওয়ার্ড",
+                phone: "01840097855",
+                lastDonationDate: "14-10-2026",
+                photo: "https://i.ibb.co/qL8XNGw3/sowkot.jpg",
+                donations: 3,
+                donationPhotos: []
+            },
+            {
+                name: "মোহাম্মদ সোহেল",
+                bloodGroup: "A+",
+                village: "দ: মিঠাছড়ি (বর্তমান বড়বাজার)",
+                ward: "২নং ওয়ার্ড",
+                phone: "01825113567",
+                lastDonationDate: "",
+                photo: "https://i.ibb.co.com/cK8s9NpV/Gemini-Generated-Image-5a6dcz5a6dcz5a6d-1.jpg",
+                donations: 0,
+                donationPhotos: []
+            },
+            {
                 name: "মিছবাহুল ইসলাম তামিম",
                 bloodGroup: "B+",
                 village: "পাতলী মিয়াজী পাড়া",
                 ward: "৬নং ওয়ার্ড",
                 phone: "01735583321",
                 lastDonationDate: "10-11-2026",
-                photo: "https://i.ibb.co/cK8s9NpV/Gemini-Generated-Image-5a6dcz5a6dcz5a6d-1.jpg.jpg",
-                donations: 0,
+                photo: "https://i.ibb.co/xqSy6GVk/tamim.jpg",
+                donations: 6,
                 donationPhotos: [
                     "https://i.ibb.co/8gND0QnL/t1.jpg",
                     "https://i.ibb.co/9HB4ZBfX/t2.jpg",
-                    "https://i.ibb.co/fzTWP4D/t4.jpg",
+                    "https://i.ibb.co/fzxTwp4D/t4.jpg",
                     "https://i.ibb.co/J4zpNWF/t5.jpg",
                     "https://i.ibb.co/JWx7J1gg/t6.jpg",
-                    "https://i.ibb.co/Y76w39Jz/t11.jpg"
+                    "https://i.ibb.co/Y76v39Jz/t11.jpg"
                 ]
+            },
+            {
+                name: "আনিসুল হক",
+                bloodGroup: "O+",
+                village: "ধাওন খালী",
+                ward: "৮নং ওয়ার্ড",
+                phone: "01854660131",
+                lastDonationDate: "11-02-2026",
+                photo: "https://i.ibb.co/s9zMyLpR/anis.jpg",
+                donations: 3,
+                donationPhotos: []
             }
         ];
 
         let allDonors = [...DONORS_LIST];
         let selectedBloodGroup = "ALL";
         let uploadedPhotoDataUrl = "";
-
-        function toggleGuidelines() {
-            const list = document.getElementById('guidelinesList');
-            const btn = document.getElementById('guidelinesToggleBtn');
-            const isCollapsed = list.classList.toggle('collapsed');
-            btn.textContent = isCollapsed ? 'দেখুন ▼' : 'লুকান ▲';
-        }
 
         function toBn(num) {
             const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -1570,7 +1502,7 @@
                 const phoneClean = cleanPhone(d.phone);
                 const digits = phoneClean.replace(/\D/g, '');
                 const waNum = digits.startsWith('88') ? digits : `88${digits}`;
-                const waText = encodeURIComponent(`আসসালামু আলাইকুম ${d.name}, পি. এম. খালী ব্লাড ডোনার সোসাইটি ওয়েবসাইট থেকে আপনার নম্বর পেয়েছি।\n\nজরুরি ভিত্তিতে ${d.bloodGroup} গ্রুপের রক্ত প্রয়োজন।\n• রোগীর সমস্যা:\n• হিমোগ্লোবিন পয়েন্ট:\n• হাসপাতালের নাম:\n• কখন লাগবে:\n\nআপনি কি রক্তদানে সাহায্য করতে পারবেন?`);
+                const waText = encodeURIComponent(`আসসালামু আলাইকুম ${d.name}, পি. এম. খালী ব্লাড ডোনার সোসাইটি ওয়েবসাইট থেকে আপনার নম্বর পেয়েছি। জরুরি ভিত্তিতে ${d.bloodGroup} গ্রুপের রক্ত প্রয়োজন। আপনি কি রক্তদানে সাহায্য করতে পারবেন?`);
 
                 return `
                     <article class="donor-card ${status.ready ? 'ready-card' : 'waiting-card'}">
@@ -1635,6 +1567,7 @@
             }).join('');
         }
 
+        // Gallery Modal Functions
         function openGalleryModal(donorIdx) {
             const donor = allDonors[donorIdx];
             if (!donor || !Array.isArray(donor.donationPhotos)) return;
@@ -1797,6 +1730,7 @@
             setTimeout(() => box.classList.remove('show'), 4000);
         }
 
+        // পেজ ওপেন হওয়ার সাথে সাথেই ডোনার তালিকা দেখাবে
         window.onload = function() {
             applyFilters();
         };
