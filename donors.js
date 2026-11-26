@@ -115,7 +115,7 @@ const DONORS_LIST = [
         ward: "২নং ওয়ার্ড",
         phone: "01825113567",
         lastDonationDate: "",
-        photo: "https://i.ibb.co.com/cK8s9NpV/Gemini-Generated-Image-5a6dcz5a6dcz5a6d-1.jpg",
+        photo: "https://i.ibb.co/cK8s9NpV/Gemini-Generated-Image-5a6dcz5a6dcz5a6d-1.jpg",
         donations: 0,
         donationPhotos: []
     },
@@ -165,7 +165,7 @@ const DONORS_LIST = [
         village: "ধাওন খালী",
         ward: "৮নং ওয়ার্ড",
         phone: "01818226626",
-        lastDonationDate: ",
+        lastDonationDate: "",
         photo: "https://i.ibb.co/LdKBWnZL/Gemini-Generated-Image-gitwevgitwevgitw.jpg",
         donations: 0,
         donationPhotos: []
