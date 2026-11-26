@@ -158,5 +158,16 @@ const DONORS_LIST = [
         photo: "https://i.ibb.co/q3Swz0zg/Gemini-Generated-Image-s085r3s085r3s085.jpg",
         donations: 4,
         donationPhotos: []
+    },
+    {
+        name: "আজিজুল হক",
+        bloodGroup: "AB+",
+        village: "ধাওন খালী",
+        ward: "৮নং ওয়ার্ড",
+        phone: "01818226626",
+        lastDonationDate: ",
+        photo: "https://i.ibb.co/LdKBWnZL/Gemini-Generated-Image-gitwevgitwevgitw.jpg",
+        donations: 0,
+        donationPhotos: []
     }
 ];
