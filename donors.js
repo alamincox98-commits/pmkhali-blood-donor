@@ -147,5 +147,16 @@ const DONORS_LIST = [
         photo: "https://i.ibb.co/s9zMyLpR/anis.jpg",
         donations: 3,
         donationPhotos: []
+    },
+    {
+        name: "মামুনুর রশিদ",
+        bloodGroup: "O+",
+        village: "মুহসিনিয়া পাড়া",
+        ward: "৭নং ওয়ার্ড",
+        phone: "01891510328",
+        lastDonationDate: "11-02-2026",
+        photo: "https://i.ibb.co/q3Swz0zg/Gemini-Generated-Image-s085r3s085r3s085.jpg",
+        donations: 4,
+        donationPhotos: []
     }
 ];
