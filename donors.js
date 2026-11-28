@@ -213,5 +213,31 @@ const DONORS_LIST = [
         photo: "https://i.ibb.co/zTtGPWwy/Gemini-Generated-Image-pxwve9pxwve9pxwv.jpg",
         donations: 6,
         donationPhotos: []
-    }		
+    },
+    {
+        name: "রায়হান উদ্দিন",
+        bloodGroup: "B+",
+        village: "পশ্চিম পাতলী",
+        ward: "৬নং ওয়ার্ড",
+        phone: "01762113281",
+        lastDonationDate: "30-08-2026",
+        photo: "https://i.ibb.co/zVjjv2mK/raihan.jpg",
+        donations: 18,
+        donationPhotos: ["https://i.ibb.co/BVNZ1WqG/513875331-674537272251185-4761934827204215502-n.jpg","https://i.ibb.co/1JLQYb2C/1.jpg",
+"https://i.ibb.co/5g5N2h2K/2.jpg",
+"https://i.ibb.co/1G2vsmFp/3.jpg",
+"https://i.ibb.co/VYcmh66n/4.jpg",
+"https://i.ibb.co/zTfVPmBR/image.jpg"]
+    },
+    {
+        name: "মোঃ শাহেদ",
+        bloodGroup: "O+",
+        village: "পাতলী চৌধুরী পাড়া",
+        ward: "৬নং ওয়ার্ড",
+        phone: "01620330497",
+        lastDonationDate: "30-08-2025",
+        photo: " https://i.ibb.co/ZR4Rckwx/s2.jpg ",
+        donations: 1,
+        donationPhotos: []
+    }				
 ];
