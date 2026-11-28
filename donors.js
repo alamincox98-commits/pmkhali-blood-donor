@@ -187,8 +187,19 @@ const DONORS_LIST = [
         village: "মধ্যম পাতলী",
         ward: "৬নং ওয়ার্ড",
         phone: "01891504829",
-        lastDonationDate: "",
+        lastDonationDate: "20-09-2026",
         photo: "https://i.ibb.co/qL9zLsY8/AMAN-UDDIN.png",
+        donations: 3,
+        donationPhotos: []
+    },
+    {
+        name: "রহিম উল্লাহ",
+        bloodGroup: "O+",
+        village: "মধ্যম পাতলী",
+        ward: "৬নং ওয়ার্ড",
+        phone: "01837198135",
+        lastDonationDate: "20-09-2025",
+        photo: "https://i.ibb.co/cXCb0hCn/ROHIM.png",
         donations: 3,
         donationPhotos: []
     }
