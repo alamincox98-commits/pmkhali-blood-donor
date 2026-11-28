@@ -169,5 +169,27 @@ const DONORS_LIST = [
         photo: "https://i.ibb.co/LdKBWnZL/Gemini-Generated-Image-gitwevgitwevgitw.jpg",
         donations: 0,
         donationPhotos: []
+    },
+    {
+        name: "আবু মোরশেদ",
+        bloodGroup: "O+",
+        village: "মধ্যম পাতলী",
+        ward: "৬নং ওয়ার্ড",
+        phone: "01405672690",
+        lastDonationDate: "",
+        photo: "https://i.ibb.co/Q3YhFkbv/MORSHED.jpg",
+        donations: 0,
+        donationPhotos: []
+    },
+    {
+        name: "আমান উদ্দিন",
+        bloodGroup: "AB+",
+        village: "মধ্যম পাতলী",
+        ward: "৬নং ওয়ার্ড",
+        phone: "01891504829",
+        lastDonationDate: "",
+        photo: "https://i.ibb.co/qL9zLsY8/AMAN-UDDIN.png",
+        donations: 3,
+        donationPhotos: []
     }
 ];
