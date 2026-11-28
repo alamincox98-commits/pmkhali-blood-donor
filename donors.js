@@ -202,5 +202,16 @@ const DONORS_LIST = [
         photo: "https://i.ibb.co/cXCb0hCn/ROHIM.png",
         donations: 3,
         donationPhotos: []
-    }
+    },
+    {
+        name: "মোতাহের আলম চৌধুরী",
+        bloodGroup: "B+",
+        village: "পাতলী চৌধুরী পাড়া",
+        ward: "৬নং ওয়ার্ড",
+        phone: "01819708133",
+        lastDonationDate: "22-08-2025",
+        photo: "https://i.ibb.co/zTtGPWwy/Gemini-Generated-Image-pxwve9pxwve9pxwv.jpg",
+        donations: 6,
+        donationPhotos: []
+    }		
 ];
